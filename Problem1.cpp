@@ -6,6 +6,11 @@
 #include <algorithm>
 #include <vector>
 
+// Runtime: O(m*n)
+// Space: O(1)
+// Approach: Follow a island of '1's till there is break and then change the visited '1's to NULL and repeat till all one's
+// are covered in the grid. Increase count for every time a new island is discovered.
+
 using namespace std;
 
 class Solution{
