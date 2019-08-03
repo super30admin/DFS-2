@@ -1,3 +1,6 @@
+// Time Complexity :O(r*c) --> Row times Column 
+// Space Complexity  : O(1) --> We are only using constant space
+
 #include <iostream>
 #include <vector>
 
