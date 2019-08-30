@@ -1,0 +1,34 @@
+class Solution {
+    public void traverse(int i,int j,int row,int col,char[][] ch)
+    {
+        if(i>=0 && i<row && j>=0 && j<col && ch[i][j]=='1')
+        {
+            ch[i][j]='2';
+            traverse(i,j-1,row,col,ch);
+            traverse(i,j+1,row,col,ch);
+            traverse(i+1,j,row,col,ch);
+            traverse(i-1,j,row,col,ch);
+        }
+        return;
+    }
+    public int numIslands(char[][] grid)
+    {
+        if(grid==null||grid.length==0)
+            return 0;
+        int row=grid.length,c=0;
+        int col=grid[0].length;
+       // boolean flag=false;
+        for(int i=0;i<row;i++)
+        {
+            for(int j=0;j<col;j++)
+            {
+                if(grid[i][j]=='1')
+                {
+                   traverse(i,j,row,col,grid);
+                  c++;
+                }
+            }
+        }
+        return c;
+    }
+}
