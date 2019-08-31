@@ -1,6 +1,6 @@
 from collections import deque
 class Solution:
-	def numIslands(self, grid: List[List[str]]) -> int:
+	def numIslands1(self, grid: List[List[str]]) -> int:
 		# BFS Approach
 		# Space Complexity : O(mn) where m is the number of rows and n is the number of columns (have a queue for BFS)
 		# Time Complexity : O(mn) where m is the number of rows and n is the number of columns (Not sure because we are iterating over the queue for every 1 element in the matrix)
@@ -33,3 +33,29 @@ class Solution:
 							queue.append([r, c + 1])
 							grid[r][c + 1] = "0"
 		return res
+
+	def numIslands2():
+		# DFS Approach
+		# Failing on leetcode with time limit exceeded. Please let me know the issue
+		rows = len(grid)
+		res = 0
+		if rows == 0:
+			return res
+		columns = len(grid[0])
+		if columns == 0:
+			return res
+		for i in range(rows):
+			for j in range(columns):
+				if grid[i][j] == "1":
+					res += 1
+					self.dfs(grid, i, j)
+		return res
+	
+	def dfs(self, grid, x, y):
+		if x < 0 or y < 0 or x >= len(grid) or y >= len(grid[0]) or grid[x][y] != "1":
+			return
+		grid[x][y] == "0"
+		self.dfs(grid, x - 1, y)
+		self.dfs(grid, x + 1, y)
+		self.dfs(grid, x, y - 1)
+		self.dfs(grid, x, y + 1)
