@@ -52,10 +52,9 @@ class Solution:
 		return res
 	
 	def dfs(self, grid, x, y):
-		if x < 0 or y < 0 or x >= len(grid) or y >= len(grid[0]) or grid[x][y] != "1":
-			return
-		grid[x][y] == "0"
-		self.dfs(grid, x - 1, y)
-		self.dfs(grid, x + 1, y)
-		self.dfs(grid, x, y - 1)
-		self.dfs(grid, x, y + 1)
+		if x >= 0 and y >= 0 and x < len(grid) and y < len(grid[0]) and grid[x][y] == "1":
+			grid[x][y] = "0"
+			self.dfs(grid, x - 1, y)
+			self.dfs(grid, x + 1, y)
+			self.dfs(grid, x, y - 1)
+			self.dfs(grid, x, y + 1)
