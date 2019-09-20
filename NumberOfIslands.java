@@ -1,7 +1,7 @@
 /**
  * LeetCode Execution: Smooth ! 
  * 
- * Time Complexity:  O(r * c) r-> Rows; c -> Columns
+ * Time Complexity:  O(r^2 * c^2) r-> Rows; c -> Columns
  * Space Complexity: O(r * c) For the Recursion Stack
  * 
  * Appraoch: Find a land and from that start traversing and changing the values of visited land. Number of times the main function call traverse function will be our count
