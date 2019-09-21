@@ -1,160 +1,154 @@
 /* Problem Statement:
 Verified on leetcode
 
-https://leetcode.com/problems/flood-fill/
+https://leetcode.com/problems/decode-string/
 
-200. Number of Islands
+394 Decoded string
 
-Given a 2d grid map of '1's (land) and '0's (water), count the number of islands. An island is surrounded by water and is formed by connecting adjacent lands horizontally or vertically. You may assume all four edges of the grid are all surrounded by water.
+Given an encoded string, return its decoded string.
 
-Example 1:
+The encoding rule is: k[encoded_string], where the encoded_string inside the square brackets is being repeated exactly k times. Note that k is guaranteed to be a positive integer.
 
-Input:
-11110
-11010
-11000
-00000
+You may assume that the input string is always valid; No extra white spaces, square brackets are well-formed, etc.
 
-Output: 1
+Furthermore, you may assume that the original data does not contain any digits and that digits are only for those repeat numbers, k. For example, there won't be input like 3a or 2[4].
 
-Example 2:
+Examples:
 
-Input:
-11000
-11000
-00100
-00011
-
-Output: 3
+s = "3[a]2[bc]", return "aaabcbc".
+s = "3[a2[c]]", return "accaccacc".
+s = "2[abc]3[cd]ef", return "abcabccdcdcdef".
 
 
  *
- * Time Complexity : O(r*c)
- * Space Complexity : O(r*c)
+ * Time Complexity : O(n)
+ * Space Complexity : O(n)
  */
 
 
 
 
-#define MAX_QUEUE_SIZE 11000
-#define ROW_COL 2
-#define DIR_LEN 4
+#define MAX_STACK_SIZE 11000
+#define ITEM_SIZE 3
+#define ROW_COL_DIR 4
 
-// A structure to represent a queue
-typedef struct queue
+typedef struct stack {
+    int top;
+    int capacity;
+    char *elem;
+}stack_t;
+
+stack_t* createStack()
 {
-    int front, rear, size;
-    unsigned capacity;
-    int** array;
-}queue_t;
-
-/**** Queue functions start ***/
-
-queue_t* createqueue()
-{
-    queue_t* q = (queue_t*)calloc(1, sizeof(queue_t));
-    q->array = (int **)calloc(MAX_QUEUE_SIZE, sizeof(int *));
-    q->capacity = MAX_QUEUE_SIZE;
-    q->front = q->size = 0; 
-    q->rear = MAX_QUEUE_SIZE - 1;
-    return q;
+    stack_t* st = (stack_t*)calloc(1, sizeof(stack_t));
+    st->capacity = MAX_STACK_SIZE;
+    st->top = -1;
+    st->elem = malloc(MAX_STACK_SIZE * sizeof(char));
+    return st;
 }
+// stack is full when size becomes equal to the capacity 
+int isStackFull(stack_t* st)
+{  return (st->top == st->capacity - 1);  }
  
-// queue is full when size becomes equal to the capacity 
-int isFull(queue_t* queue)
-{  return (queue->size == queue->capacity);  }
- 
-// queue is empty when size is 0
-int isEmpty(queue_t* queue)
-{  return (queue->size == 0); }
- 
-// Function to add an item to the queue.  It changes rear and size
-void enqueue(queue_t* queue, int item_row, int item_col)
-{
-    int *item = NULL;
-    if (isFull(queue)) {
-        queue->array = (int **)realloc(queue->array, sizeof(int*) * (queue->size) * 2);
-        queue->capacity = (queue->size) * 2;
+// stack is empty when size is 0
+int isStackEmpty(stack_t* st)
+{  return (st->top == -1); 
+
+}
+
+char peek(stack_t *st) {
+    if (st->top == -1) {
+        return 'v';
+    } else {
+        return st->elem[st->top];
     }
-    /* store row and col */
-    item = (int *)malloc(sizeof(int) * ROW_COL);
-    if (!item) {
+}
+void push(stack_t *st, char item) {
+    
+    if (isStackFull(st)) {
+        printf("No space in stack\n");
         return;
     }
-    item[0] = item_row;
-    item[1] = item_col;
-    queue->rear = (queue->rear + 1) % queue->capacity;
-    queue->array[queue->rear] = item;
-    queue->size = queue->size + 1;
-    //printf("%ld enqueued to queue\n", item->data);
+
+    st->elem[++st->top] = item;
+    //printf(" Tnode item with val %ld added to stack.\n", item->data);
 }
- 
-// Function to remove an item from queue.  It changes front and size
-int* dequeue(queue_t* queue)
-{
-    if (isEmpty(queue))
-        return NULL;
-    int *item = queue->array[queue->front];
-    queue->front = (queue->front + 1) % queue->capacity;
-    queue->size = queue->size - 1;
+
+char pop(stack_t *st) {
+    char item;
+    if (isStackEmpty(st)) {
+        //printf("No elements to delete in stack\n");
+        return 'v';
+    }
+    item = st->elem[st->top--];
+    //printf(" Tnode item with val %ld popped out of stack.\n", item->data);
     return item;
 }
 
-void free_queue(queue_t* queue) {
-    //printf("here\n");
-    free(queue->array);
-    free(queue);
-}
-/*
-* Approach :
-* Do BFS traversal and for each row,col in the matrix , keep track of all 1st being encountered. once 1s are finished.
-* one island is found. keep on iterating unless the matrix is finished.
-*/
+char* push_string(char *src_str, int *curr_src_len, int str_len) {
+    int digit = 0;
+    int counter = 0;
+    char *start_ptr = NULL;
+    char *end_ptr = NULL;
+    char *next_str = NULL;
+    char *curr_str = NULL;
+    int curr_len = 0;
+    
+    /* temporary memory allocation string for output */
+    curr_str = calloc(10000, 1);
+    
+    /* Keep on doing it unless we parse the complete string */
+    while (*curr_src_len < str_len) {
+        printf("print: %d, ", *curr_src_len);
+        printf("%c\n", src_str[*curr_src_len]);
+        
+        /* case 1 : process digit */
+        if (isdigit(src_str[*curr_src_len])) {
+            digit = digit*10 + (src_str[*curr_src_len] - '0');
+        } else if (src_str[*curr_src_len] == '[') {
+            /* case 2: skip start bracket and call the function again */
+            (*curr_src_len)++;
 
-int numIslands(char** grid, int gridSize, int* gridColSize){
-    int island_cnt = 0;
-    int *temp_item = NULL;
-    queue_t *queue = NULL;
-    int idx = 0, idx1 = 0;
-    int dir = 0;
-    int sr = 0, sc = 0;
-    
-    if (!gridSize) {
-        return island_cnt;
-    }
-    /* for direction movement */
-    int rowDir[] = {0,0,1,-1};
-    int colDir[] = {1,-1,0,0};
-    
-    queue = createqueue();
-    /* iterate over each land if not yet scanned */
-    for (idx = 0; idx < gridSize; idx++) {
-        for (idx1 = 0; idx1 < *gridColSize; idx1++) {
-            if (grid[idx][idx1] != '5' && grid[idx][idx1] != '0') {
-                enqueue(queue, idx, idx1);
-                /* do the steps until queue becomes empty */
-                while (!isEmpty(queue)) {
-                    temp_item = dequeue(queue);
-                    
-                    for (dir = 0; dir < DIR_LEN; dir++) {
-                        sr = temp_item[0] + rowDir[dir];
-                        sc = temp_item[1] + colDir[dir];
-                        if (sr >= 0 && sr < gridSize && sc >= 0 && sc < *gridColSize && grid[sr][sc] != '0' && grid[sr][sc] != '5') {
-                            grid[sr][sc] = '5'; /* set to any random value for tracking purpose */
-                            enqueue(queue,sr,sc);
-                        }
-                    }
-                    
-                    free(temp_item);
+            next_str = push_string(src_str, curr_src_len, str_len);
+            if (next_str) {
+                for (counter = 0; counter < digit; counter++) {
+                    strncat(curr_str + curr_len, next_str, strlen(next_str));
+                    curr_len = strlen(curr_str);                  
                 }
-                island_cnt++;
-                
+                free(next_str);
             }
+            digit = 0;
+        } else if (src_str[*curr_src_len] == ']'){
+            /* case 3: end bracket, so end from here .*/
+            return curr_str;
+        } else {
+            /* case 4: char strings need to be copied to output array */
+            curr_str[curr_len] = src_str[*curr_src_len];
+            curr_len++;
         }
+        (*curr_src_len)++;
     }
-    /* free queue and return final island count */
-    free_queue(queue);
-    return island_cnt;
+    return curr_str;
+}
+
+char * decodeString(char * s){
+    char *output = NULL;
+    int total_len = 0;
+    int curr_len = 0;
+    
+    /* corner case handling */
+    if (!s) {
+        return output;
+    }
+    if (!strlen(s)) {
+        return "";
+    }
+    /* total len of src string */
+    total_len = strlen(s);
+    
+    output = push_string(s, &curr_len,total_len);
+
+    return output;
 }
 
 
