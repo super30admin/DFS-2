@@ -1,4 +1,19 @@
-// Case Missed: Double Digit Numbers
+/**
+ * LeetCode Execution: No Problem
+ * 
+ * Time Complexity: O(n) n -> length of Sring
+ * Space Complexity: O(n) for Recursion Stack
+ * 
+ * Case Missed: When we have double digits
+ * 
+ * Approach: Start pushing the characters into the stack, the processing begins when we encouter an ']'
+ *           To process string we start popping and build a sub string, then extract the count associated with that string and generate theh string
+ *            Push back the string to the stack (to take care of nested strings)
+ * 
+ * Personal Note: I liked the question and they it made me think about the solution/edge cases. I dry ran a program numerous times.
+ *                Learned something novel while solving this question.
+ */
+
 
 class Solution {
   public String decodeString(String s) {
@@ -54,7 +69,7 @@ class Solution {
           mainStr.append(str);
       }
       
-      //Push Back into the Stack
+      //Push Back into the Stack (to take care of the nested strings)
       char[] c = (mainStr.toString()).toCharArray();
       
       for (int i = 0; i < c.length; i++) {
