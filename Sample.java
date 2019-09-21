@@ -35,3 +35,64 @@ class Solution {
         
     }
 }
+
+// Time Complexity : 
+// Space Complexity : O(string length)
+// Did this code successfully run on Leetcode : almost, failed for some test cases
+// Any problem you faced while coding this : some test case if failing
+
+
+// Your code here along with comments explaining your approach
+
+class Solution {
+    Stack<Integer> st;
+    public String decodeString(String s) {
+        st = new Stack<Integer>();
+        return dfs(s);
+    }
+    public String dfs(String s){
+        int i=0;
+        StringBuilder res = new StringBuilder();
+        while(i<s.length()){
+            if(Character.isDigit(s.charAt(i))){
+                char c = s.charAt(i);
+                int n = c - '0';
+                i++;
+                while(i<s.length() && Character.isDigit(s.charAt(i))){
+                    n = n*10;
+                    n = n + (s.charAt(i)-'0');
+                    i++;
+                }
+                st.push(n); // i will be '['
+                int j=i+1;
+                while(s.charAt(j)!=']'){
+                    j++;
+                }
+                System.out.println("s.substring(i,j+1)" + s.substring(i,j+1));
+                String inner = dfs(s.substring(i,j+1));
+                System.out.println("inner "+inner);
+                res.append(inner);
+                i=j;
+            }
+            else if(s.charAt(i)=='['){
+                res.append("");
+            }
+            else if(Character.isLetter(s.charAt(i))){
+                res.append(s.charAt(i));
+            }
+            else if(s.charAt(i)==']'){
+                int val = st.pop();
+                System.out.println("val "+val);
+                StringBuilder tmp = new StringBuilder(res);
+                val--;
+                while(val>0){
+                    res.append(tmp);
+                    val--;
+                }
+                break;
+            }
+            i++;
+        }
+        return res.toString();
+    }
+}
