@@ -2,7 +2,7 @@
  * LeetCode Execution: No Problem
  * 
  * Time Complexity: O(n) n -> length of Sring
- * Space Complexity: O(n) for Recursion Stack
+ * Space Complexity: O(N) for Recursion Stack + N -> Lenght of final output
  * 
  * Case Missed: When we have double digits
  * 
@@ -77,3 +77,15 @@ class Solution {
       }
   }
 }
+
+
+/**
+ * Solution 2: Recursive Approach
+ * 
+ * LeetCode Execution: 
+ * 
+ * Time Complexity: O(n) n -> Length of String
+ * Space Complexity: O(N) N -> lenght of the output String
+ * 
+ * 
+ */
