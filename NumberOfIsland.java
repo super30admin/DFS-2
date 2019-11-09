@@ -1,4 +1,4 @@
-// Time Complexity :O(N)
+// Time Complexity :O(N) where N - row*col & N is no of nodes in the graph.
 // Space Complexity :O(1) + recursion stack
 // Did this code successfully run on Leetcode : Yes.
 // Any problem you faced while coding this : Nope.
