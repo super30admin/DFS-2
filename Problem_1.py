@@ -1,5 +1,8 @@
+# Runs on Leetcode
 
-
+# DFS solution
+        # Runtime - O(n)
+        # Memory - O(1)
 
 class Solution:
     def numIslands(self, grid: List[List[str]]) -> int:
@@ -27,3 +30,31 @@ class Solution:
             self.dfs(i,j-1)
             
     
+# BFS solution
+        # Runtime - O(n)
+        # Memory - O(n)
+
+class Solution:
+    def numIslands(self, grid: List[List[str]]) -> int:
+        if not grid:
+            return 0
+        rows = len(grid)
+        cols = len(grid[0])
+        count = 0
+        queue = []
+        directions = [[0,1],[0,-1],[1,0],[-1,0]]
+        for i in range(rows):
+            for j in range(cols):
+                if grid[i][j] == '1':
+                    count += 1
+                    queue.append([i,j])
+                    grid[i][j] = '0'
+                    while queue:
+                        element = queue.pop(0)
+                        for d in directions:
+                            x = element[0] + d[0]
+                            y = element[1] + d[1]
+                            if 0<=x<len(grid) and 0<=y<len(grid[0]) and grid[x][y]!='0':
+                                queue.append([x,y])
+                                grid[x][y] = '0'
+        return count
