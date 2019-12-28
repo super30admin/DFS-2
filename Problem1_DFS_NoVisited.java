@@ -1,6 +1,6 @@
 /**
 LeetCode Submitted : YES
-Space Complexity : O(M*N)
+Space Complexity : O(1) // No Recursion stack considered
 Time Complexity: O(M*N)
 
 The idea is to call DFS when node = land i.e. 1 and recursively iterate the grid till we reach an island or exhaust all options of the matrix. Also,I have not created a visited array here and changing the original matrix.
