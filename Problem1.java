@@ -34,3 +34,38 @@ class Solution {
         }
 	}
 }
+
+// BFS
+// BFS
+class Solution {
+    public int numIslands(char[][] grid) {
+		if(grid == null || grid.length==0) return 0;
+		int num_islands =0;
+		int nr= grid.length;
+		int nc = grid[0].length;
+        	int[][] dirs = {{0,1},{1,0},{-1,0},{0,-1}};
+		for(int i=0;i < nr;i++) {
+			for(int j=0;j < nc;j++) {
+				if(grid[i][j]=='1') {
+					++num_islands;
+				    Queue<int[]> q = new LinkedList<>();
+				    q.add(new int[]{i,j});
+				    //grid[i][j] = '0';
+				    while(!q.isEmpty()){
+					int[] curr = q.poll();
+					grid[curr[0]][curr[1]] = '0';
+					for(int[] dir: dirs){
+					    int r = curr[0] + dir[0];
+					    int c = curr[1] + dir[1];
+					    if(r >= 0 && r < nr && c >= 0 && c < nc && grid[r][c] =='1'){
+						q.add(new int[]{r,c});
+						grid[r][c] = '0';    
+					    }
+					}   
+				    }
+				}
+			}
+		}
+		return num_islands;
+	}
+}
