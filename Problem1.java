@@ -12,11 +12,11 @@ class Solution {
         m = grid.length;
         n = grid[0].length;
 		int num_islands =0;
-		for(int i=0;i < m;i++) {
+		for(int i=0;i < m;i++) { //Iterate through the grid and mutatue the same grid as we process
 			for(int j=0;j < n;j++) {
 				if(grid[i][j]=='1') {
-					++num_islands;
-					dfs(grid,i,j);
+					++num_islands; 	// increment the number of islands when the 1 appears
+					dfs(grid,i,j);	// Add all the consecutive ones and make them 0 so that they are not processed again
 				}
 			}
 		}
@@ -24,10 +24,10 @@ class Solution {
 	}
 	
 	public void dfs(char[][] grid,int r,int c) {
-		if(r<0 || r>=m || c<0 || c>=n || grid[r][c] =='0')
+		if(r<0 || r>=m || c<0 || c>=n || grid[r][c] =='0') // check if the r and c are vaid positions in the grid
 			return;
-		grid[r][c] ='0';
-        for(int[] dir : dirs){
+		grid[r][c] ='0';	// Make the position value as 0 to mark that it is processed
+        for(int[] dir : dirs){		// iterate through the dirs array and calculate new r and c which would be neighbors all 4 directions in the grid to be processed as consecutive '1' to find the island
             int i = r + dir[0];
             int j = c + dir[1];
             dfs(grid,i,j);
