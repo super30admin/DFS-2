@@ -1,0 +1,42 @@
+//Time:O(n) traversing each char in string
+//Space:O(n) taking two stacks for storing string
+class Solution {
+    public String decodeString(String s) {
+        Stack<String> st=new Stack<>();
+        Stack<Integer> numSt=new Stack<>();
+        String currString ="";
+        int currNum=0;
+        for(char c: s.toCharArray())
+        {
+            if(Character.isDigit(c))
+            {
+                //save prev string until encounter opening bracket and convert into int then or convert it like this ascii value
+                currNum=currNum*10+c-'0';
+            }
+            else if(c=='[')
+            {
+                numSt.push(currNum);
+                st.push(currString);
+                currNum=0;
+                currString="";
+            }
+            else if(c==']')
+            {
+                StringBuilder sb=new StringBuilder();
+                int HowManyTimes=numSt.pop();
+                for(int i=0;i<HowManyTimes;i++)
+                {
+                    sb.append(currString );
+                }
+                //check this here again
+                currString =st.pop()+sb;
+            }
+            //it would be string here
+            else
+            {
+                currString+=c;
+            }
+        }
+        return currString;
+    }
+}
