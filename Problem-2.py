@@ -16,5 +16,38 @@ s = "3[a2[c]]", return "accaccacc".
 
 s = "2[abc]3[cd]ef", return "abcabccdcdcdef".
 
+time - O(n)
+space - (n)
 
 """
+def DecodeString(s):
+    number_stack = []   # stack to keep track of number
+    string_stack = []    # stack to keep track of string
+    curr_num = 0         # curr env num
+    curr_string = ''     # curr env string
+    for char in s:
+
+        if char == ' ] ':
+            time = number_stack.pop()
+            process = time * curr_string
+            curr_string = string_stack.pop()+ process
+
+
+        elif char == '[':    #think start of new environment
+            number_stack.append(curr_num)
+            string_stack.append(curr_string)
+
+            #reseting
+            curr_num = 0
+            curr_string = ''
+
+
+        elif char.isnumeric():     #if numeric
+            curr_num = curr_num * 10 + char
+
+        else:
+            curr_string  += char
+    return curr_string
+
+
+print(DecodeString("2[abc]3[cd]ef"))
