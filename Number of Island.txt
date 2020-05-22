@@ -1,0 +1,77 @@
+// Time Complexity : O(n*m)
+// Space Complexity : O(n*m)
+// Did this code successfully run on Leetcode :Yes
+// Any problem you faced while coding this : No
+
+class Solution {
+    
+    /* dfs approach 
+    
+    // if we get 1 we go on all direction and make all the connected component o so that we dont revisit it
+    // and we increase count when we get 1
+    public int numIslands(char[][] grid) {
+        int count = 0; // keep count of island
+        for(int i =0; i<grid.length;i++)
+            for(int j=0; j<grid[0].length;j++)
+                if(grid[i][j] == '1'){ // when we get 1 we run dfs to make the connected 1 to zero 
+                    count++;
+                    dfs(grid,i,j);
+                }
+        return count; // return the count
+    }
+    
+    public void dfs(char[][]grid,int r ,int c){
+      int nr = grid.length;
+      int nc = grid[0].length;
+      
+      // out of limit and if its zero then continue 
+      if (r < 0 || c < 0 || r >= nr || c >= nc || grid[r][c] == '0') {
+         return;
+      }
+
+    // make particluar value zero and then run on four neighbour index
+        grid[r][c] = '0';
+        dfs(grid, r - 1, c);
+        dfs(grid, r + 1, c);
+        dfs(grid, r, c - 1);
+        dfs(grid, r, c + 1);
+        }
+    */
+    
+    /* bfs approach */
+    
+    // same as above dfs just instead of recursive solution we will add the value to queue
+    public int numIslands(char[][] grid) {
+        int count=0;
+        for(int i=0;i<grid.length;i++)
+            for(int j=0;j<grid[0].length;j++){
+                if(grid[i][j]=='1'){
+                    bfsFill(grid,i,j);
+                    count++;
+                }
+            }
+        return count;
+    }
+    
+    int[][] dirs = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
+    private void bfsFill(char[][] grid,int x, int y){
+        grid[x][y]='0';
+        int n = grid.length;
+        int m = grid[0].length;
+        LinkedList<int[]> queue = new LinkedList<int[]>();  
+        int[] code = new int[]{x,y};
+        queue.offer(code);  
+        while(!queue.isEmpty())  
+        {  
+            code = queue.poll();  
+            for(int[] d : dirs){
+                int i = code[0]+d[0];  
+                int j = code[1]+d[1];  
+                if (i < 0 || i >= n || j < 0 || j >= m || grid[i][j] != '1') 
+                    continue;
+                 queue.offer(new int[]{i,j});
+                 grid[i][j]='0';  
+            }
+        } 
+    }
+}
