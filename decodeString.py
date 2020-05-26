@@ -1,5 +1,5 @@
-# Time Complexity : O(n) where n is the length of the string
-# Space Complexity : O(n) for the stack
+# Time Complexity : O(n) where n is length of the string
+# Space Complexity : O(n)
 # Did this code successfully run on Leetcode : Yes
 # Any problem you faced while coding this : No
 
