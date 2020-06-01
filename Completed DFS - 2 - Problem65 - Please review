@@ -1,0 +1,93 @@
+PROBLEM 1 -
+// Time Complexity :O(mn)
+ // Space Complexity :O(n)
+ // Did this code successfully run on Leetcode :Yes
+
+class Solution {
+    func numIslands(_ grid: [[Character]]) -> Int {
+        // we will store the registered Islands and their lands;
+        var grid = grid
+        if grid.isEmpty {
+            return 0
+        }
+        var count = 0
+        let row = grid.count, col = grid[0].count
+        for i in 0..<row {
+            for j in 0..<col {
+                if grid[i][j] == "1" {
+                    // DFS
+                   DFS(grid: &grid, i, j)
+                   count += 1
+                }
+            }
+        }
+        return count
+    }
+    
+    func DFS(grid: inout [[Character]], _ x: Int, _ y: Int)
+    {
+        if grid[x][y] == "1" {
+            grid[x][y] = "0"
+            if x - 1 >= 0 && grid[x-1][y] == "1" {
+                DFS(grid: &grid, x-1, y)
+            }
+            if y - 1 >= 0 && grid[x][y-1] == "1" {
+                DFS(grid: &grid, x, y-1)
+            }
+            if x + 1 < grid.count && grid[x+1][y] == "1" {
+                DFS(grid: &grid, x+1, y)
+            }
+            if y + 1 < grid[0].count && grid[x][y+1] == "1" {
+                DFS(grid: &grid, x, y+1)
+            }
+        }
+    }
+}
+
+PROBLEM 2 -
+
+class Solution {
+    func decodeString(_ s: String) -> String {
+        guard s.count > 0 else {
+            return ""
+        }
+        
+        //multiplier stack record k, the number of repeating times
+        var multiplierStack = [Int]()
+        
+        //prefix stack record the substrings before the bracket
+        var prefixStack = [String]()
+        
+        var numberString = ""
+        var subString = ""
+        
+        //if the string start with charater, treat it as 1[...]
+        if !s.first!.isNumber {
+            multiplierStack.append(1)
+        }
+		
+        for char in s {
+            if char.isNumber {
+                numberString.append(char)
+            } else if char == "[" {
+                multiplierStack.append(Int(numberString)!)
+                prefixStack.append(subString)
+                numberString = ""
+                subString = ""
+            } else if char == "]" {
+                let multiplier = multiplierStack.removeLast()
+                var temp = ""
+                for index in 0..<multiplier {
+                    temp.append(subString)
+                }
+                let prefix = prefixStack.removeLast()
+                subString = prefix + temp
+            } else {
+				// -- In the case char is "character", save it by subString
+                subString.append(char)
+            }
+        }
+        
+        return subString
+    }
+}
