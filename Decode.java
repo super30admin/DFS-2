@@ -41,3 +41,43 @@ class Solution {
         return res;
     }
 }
+
+<-----Recursion---->
+Time and space both O(n)
+class Solution {
+    int pos = 0;
+    public String decodeString(String s) {
+        return decode(s);
+    }
+    private String decode(String s) {
+        if(s == null || s.length() == 0) return "";
+        StringBuilder sub = new StringBuilder();
+        while(pos < s.length()) {
+            char c = s.charAt(pos);
+            if(Character.isLetter(c)) {
+                sub.append(c);
+                pos++;
+            }
+            else if(Character.isDigit(c)) {
+                int cnt = 0;
+                //might be more than one digit number 
+                while(Character.isDigit(c)) {
+                    cnt = cnt * 10 + c - '0';
+                    pos++;
+                    c = s.charAt(pos);
+                }
+                pos++;
+                String dup = decode(s);
+                while(cnt > 0){
+                    sub.append(dup);
+                    cnt--;
+                }
+            }
+            else if(c == ']') {
+                pos++;
+                return sub.toString();
+            }
+        }
+        return sub.toString();   
+    }
+}
