@@ -1,5 +1,5 @@
-// Time complexity - O(length of given string)
-// Space complexity - o(length of decoded string)
+// Time complexity - O(length of decoded string)
+// Space complexity - O(length of given string)
 
 // DFS on nested strings
 
