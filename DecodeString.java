@@ -50,3 +50,51 @@ class Solution {
         return curr_str.toString();
     }
 }
+
+/*
+
+Recursion Algorithm
+
+int i = 0;
+    
+    public String decodeString(String s) {
+        
+        if (s == null  || s.length() == 0)  return s;
+        
+        Integer curr_num = 0;
+        StringBuilder result = new StringBuilder();
+        
+        while(i < s.length()){
+            char c = s.charAt(i);
+            if(Character.isDigit(c)){
+                i++;
+                curr_num = curr_num * 10 + c - '0';
+                
+            }
+            // if you encounter open bracket that means you will recursively call the function
+            else if(c == '['){
+                i++;
+                String inner = decodeString(s);
+              
+                for(int k =0;k < curr_num;k++){
+                    result.append(inner);
+                }
+                curr_num = 0;
+                
+            }
+            
+            // return you encounter closing bracker
+            else if(c == ']'){
+                i++;
+                return result.toString();
+            }
+            else{
+                i++;
+                result.append(c);
+            }        
+        }
+        
+        return result.toString();
+    }
+
+*/
