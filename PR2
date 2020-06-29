@@ -1,0 +1,91 @@
+// Time Complexity : O(n*k) n is the number of characters and k is number of times the string must be multiplied. If k is very small it can be ignored.
+// Space Complexity : O(n+k) the stack space -n + k the string builder result being created everytime(space is being created.)
+// Did this code successfully run on Leetcode : Yes
+// Any problem you faced while coding this : yes, I wasn't able to understand how to think recursively.
+
+
+// Your code here along with comments explaining your approach: for each input we have an if case. If we encounter a '[' recurse ofn the underlying. If we encounter a ']' return the result.this progresses recursively. The global 'i' pointer keeps track of the current position.
+
+
+
+class Solution {
+    int i=0;
+    public String decodeString(String s) {
+        //edge case
+        if(s==null || s.length()==0) return s;
+        int num=0; StringBuilder result=new StringBuilder();
+        while(i<s.length()){
+            char c=s.charAt(i);
+            //case 1 
+            if(Character.isDigit(c)){
+                num=num*10+c-'0';
+                i++;
+            }
+            else if(c=='['){
+                i++;
+                String inner=decodeString(s);
+                for(int k=0;k<num;k++){
+                    result.append(inner);
+                }
+                num=0;
+            }
+            else if(c==']'){
+                i++;
+                return result.toString();
+            }
+            else{
+               result.append(c);
+                i++;
+            }
+        }
+        return result.toString();
+}
+}
+
+// Time Complexity : O(n*k) n is the number of characters and k is number of times the string must be multiplied. If k is very small it can be ignored.
+// Space Complexity : O(n+k) the stack space -n + k the string builder result being created everytime(space is being created.)
+// Did this code successfully run on Leetcode : Yes
+// Any problem you faced while coding this : yes, I wasn't able to understand how to solve.
+
+
+// Your code here along with comments explaining your approach: for each input we have an if case. If we encounter a '[' we push to the stacks. If we encounter a ']' pop the elements in the string stack, multiply it based on the number popped from the num stack and append it to the next element in the stack and update the current string. Numbers and string inputs are taken and added to currnum, currstring respectively. At the end return the current string holding the final output.
+
+
+
+
+
+
+
+class Solution {
+    public String decodeString(String s) {
+        //edge case
+        if(s==null || s.length()==0) return s;
+        int currNum=0;
+        StringBuilder currStr = new StringBuilder();
+        Stack<Integer> numStack=new Stack<>();
+        Stack<StringBuilder>  strStack=new Stack<>();
+        for(int i=0;i<s.length();i++){
+            char c=s.charAt(i);
+            if(Character.isDigit(c)){
+               currNum=currNum*10+c-'0'; //getting the integer value of the digit.    
+            }
+            else if(c=='['){
+                numStack.push(currNum);
+                strStack.push(currStr);
+                currNum=0; currStr = new StringBuilder();
+        }
+        else if(c==']'){
+            int times=numStack.pop();
+            StringBuilder newString = new StringBuilder();
+            for(int k=0;k<times;k++){
+                newString.append(currStr);
+            }
+            currStr=strStack.pop().append(newString);
+        }
+        else{
+            currStr.append(c);
+        }
+    }
+        return currStr.toString();
+}
+}
