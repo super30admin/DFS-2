@@ -25,7 +25,7 @@ class Solution(object):
                 if grid[i][j] == '1':
                     retVal += 1
                     # mark visited and add to queue
-                    # not required to mark 1st node of island 0, works without line 19
+                    # not required to mark 1st node of island 0, works without line 29
                     grid[i][j] = '0'
                     q.append((i, j))
                     # BFS
