@@ -1,0 +1,43 @@
+//Time Complexity : O(n)
+// Space Complexity :O(n)
+// Did this code successfully run on Leetcode :Yes
+// Any problem you faced while coding this :No
+
+class Solution {
+public:
+    string decodeString(string s) {
+        int currNum =0;
+        string currStr = "";
+        stack<int> numst;
+        stack<string> strst;
+        int i=0;
+        while(i<s.size()){
+            if(s[i]>='0' && s[i]<='9'){
+                currNum = currNum*10+(s[i]-'0');
+            }
+            else if(s[i]=='['){
+                numst.push(currNum);
+                strst.push(currStr);
+                currNum=0;
+                currStr = "";
+            }
+            else if(s[i]==']'){
+                int num = numst.top(); numst.pop();
+                int j=0;
+                string temp="";
+                while(j<num){
+                    temp+=currStr;
+                    j++;
+                }
+                string str = strst.top(); strst.pop();
+                currStr=str+temp;
+            }
+            else if(s[i]>='a' && s[i]<='z' || s[i]>='A' && s[i]<='Z'){
+                currStr+=s[i];
+            }
+            i++;
+        }
+        
+        return currStr;
+    }
+};
