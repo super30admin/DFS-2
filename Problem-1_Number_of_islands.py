@@ -1,6 +1,6 @@
 # APPROACH 1: BFS 
 # Time Complexity : O(2*m*n) => O(m*n), m: number of rows of grid, n: number of columns of grid, each cell is visited only a max of 2 times (onefor BFS and other for checking if 1)
-# Space Complexity : O(m*n)
+# Space Complexity : O(min(n, m))
 # Did this code successfully run on Leetcode : Yes
 # Any problem you faced while coding this : None
 #
