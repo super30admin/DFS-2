@@ -1,6 +1,56 @@
 Approach1 : BFS
 Time Complexity: 2 * O(m*n) = O(m*n)
-Space Complexity : Min( m & n)
+Space Complexity : Min( m & n) 
+class Solution:
+    def numIslands(self, grid: List[List[str]]) -> int:
+        if grid is None or len(grid)==0: return 0
+        m=len(grid)
+        n=len(grid[0])
+        count=0
+        q=collections.deque([])
+        dirs=[(0,1),(1,1),(-1,0),(0,-1)]
+        for i in range(m):
+            for j in range (n):
+                if grid[i][j]=='1':
+                    count+=1
+                    q.append((i,j))
+                    grid[i][j]='0'
+                    while q:
+                        r,c=q.popleft()
+                        for dire in dirs:
+                            r1=r+dire[0]
+                            c1=c+dire[1]
+                            if r1>=0 and r1<m and c1>=0 and c1<n and grid[r1][c1]=='1':
+                                grid[r1][c1]='0' 
+                                q.append((r1,c1))
+        return count
 Approach 2: DFS
-Time Complexity :
-Space Complexity :
+Time Complexity :O(M*N) ---> Worst Case , if the matrix is all 1's then starting (0,1) and change to 0's with m*n traversal through out the array  only once
+Space Complexity : O(M*N)
+class Solution:
+    def numIslands(self, grid: List[List[str]]) -> int:
+        if grid is None or len(grid)==0: return 0
+        self.m=len(grid)
+        self.n=len(grid[0])
+        count=0
+        for i in range(self.m):
+            for j in range(self.n):
+                if grid[i][j]=='1':
+                    count+=1
+                    self.helper(grid,i,j)
+        return count
+                    
+    def helper (self,grid,i,j):
+            # Base Case
+            if (i<0 or j<0 or i>=self.m or j>=self.n or grid[i][j]=='0'):return
+                
+            # logic
+            grid[i][j]=='0'
+            #helper(grid,i+1,j) ## down
+            #helper(grid,i,j+1) ## Right
+            #helper(grid,i+1,j+1) ## Diagonal
+            dirs=[(0,1),(1,0),(-1,0),(0,-1)]
+            for dire in dirs:
+                r=dire[0]+i
+                c=dire[1]+j
+                self.helper(grid , r,c)
