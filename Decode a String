@@ -1,0 +1,27 @@
+Approach 1 : BFS
+Time Complexity : O(K*N) = O(N)
+Space Complexity : O(N) ---> All the characters would go into stack
+class Solution:
+    def decodeString(self, s: str) -> str:
+        currstr = '' ## Empty string
+        if s is None or len(s)==0 :   ## Edge Case
+            return currstr
+        numstk, strstk = [], [],
+        num=0
+        for i in range(len(s)):
+            if s[i].isdigit():  ## Case 1
+                num=10*num+int(s[i])
+            elif s[i] == '[': ### Case 2
+                numstk.append(num)
+                strstk.append(currstr)
+                num=0
+                currstr=''
+            elif s[i] == ']': ### Case 3
+                times = numstk.pop()
+                newstring=''
+                for k in range(times):
+                    newstring=newstring+currstr
+                currstr=strstk.pop() + newstring
+            else:
+                currstr+=s[i]
+        return currstr
