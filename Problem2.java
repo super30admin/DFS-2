@@ -109,10 +109,14 @@ class Problem2S2 {
                 index++;
                 // get inner string
                 String innerString = depthFirst(s);
-                // decode it and add to current
-                current.append(String.join("", Collections.nCopies(number, innerString)));
-                // clear
-                number = 0;
+                // decode it 
+                StringBuilder temp = new StringBuilder();
+                while(number != 0){
+                    temp.append(innerString);
+                    number--;
+                }
+                // add to current
+                current.append(temp);
             // type number
             }else if(Character.isDigit(c)){
                 number = number*10 + c - '0';
