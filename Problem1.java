@@ -29,7 +29,7 @@ class Problem1S1 {
         // edge case
         if(grid != null && grid.length != 0){
             
-            // initilaize
+            // initialize
             n = grid.length;
             m = grid[0].length;
             this.grid = grid;
@@ -74,11 +74,11 @@ class Problem1S1 {
 //      n: number of rows
 //      m: number of columns
 //    Worst case the entire matrix is filled with 1s. 2nd time you just need to check if any 1s left.
-// Space Complexity : O(w) = O(nm)
+// Space Complexity : O(w) = O(min(n, m))
 //      n: number of rows
 //      m: number of columns
 //      w: width of the tree
-//    Worst case the entire matrix is filled with 1s so entire matrix is queue
+//    Worst case the entire matrix is filled with 1s.
 // Note: Make sure to process the location and then add to queue otherwise duplicate entries.
 class Problem1S2 {
 
