@@ -45,7 +45,7 @@ class Solution:
             if (i<0 or j<0 or i>=self.m or j>=self.n or grid[i][j]=='0'):return
                 
             # logic
-            grid[i][j]=='0'
+            grid[i][j]='0'
             #helper(grid,i+1,j) ## down
             #helper(grid,i,j+1) ## Right
             #helper(grid,i+1,j+1) ## Diagonal
