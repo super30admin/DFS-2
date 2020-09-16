@@ -1,30 +1,27 @@
 class Solution:
     def decodeString(self, s: str) -> str:
-        if s==None or len(s)==0:
-            return s
-        numStack=[]
-        num=0
+        if len(s)==0 or s==None:
+            return ""
+        pairStack=[]
         currStr=""
-        strStack=[]
+        currNum=0
         for i in range(len(s)):
-            c=s[i]
-            #case1
-            if(c.isdigit()):
-                num=num*10+int(c)
-            elif c=='[':
-                numStack.append(num)
-                strStack.append(currStr)
-                num=0
-                currStack=""
-            elif c==']':
-                times=numStack.pop()
-                newString=""
-                for k in range(times):
-                    newString+=currStr
-                currStr=strStack.pop()+newString
+            if s[i].isdigit():
+                currNum=10*currNum+int(s[i])
+            elif s[i]=="[":
+                pairStack.append([currNum,currStr])
+                currNum=0
+                currStr=""
+            elif s[i].isalpha():
+                currStr+=s[i]
             else:
-                currStr+=c
+                temp=pairStack.pop()
+                newString=""
+                for i in range(int(temp[0])):
+                    newString+=currStr
+                currStr=temp[1]+newString
         return currStr
+                
             
 Space Complexity is O(n)
 Time Complexity is O(n)
