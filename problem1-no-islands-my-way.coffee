@@ -1,8 +1,10 @@
 #** https://leetcode.com/problems/employee-importance/
-#// Time Complexity :
-#// Space Complexity :
-#// Did this code successfully run on Leetcode :
+#// Time Complexity : O(NxM) size of the input 2d matrix
+#// Space Complexity : O(N) size of the stack of the dfs, worst case all NxM nodes are neighbors
+#// Did this code successfully run on Leetcode : yes
 #// Any problem you faced while coding this :
+#
+# was setting element to water too soon, dfs recursive function exited early
 #
 #// Your code here along with comments explaining your approach
 #
