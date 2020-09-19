@@ -32,14 +32,14 @@ LAND = '1';
 WATER = '0';
 
 numIslands = function(grid) {
-  var col, countIslands, dfsNeighborsLandToWater, directions, i, j, maxX, maxY, ref, ref1, row;
+  var col, countIslands, dfsSetItselfAndNeighborsToWater, directions, i, j, maxX, maxY, ref, ref1, row;
   if (grid === null || grid.length === 0 || grid[0].length === 0) {
     return 0;
   }
   maxX = grid[0].length;
   maxY = grid.length;
   directions = [[-1, 0], [1, 0], [0, -1], [0, 1]];
-  dfsNeighborsLandToWater = function(y, x) {
+  dfsSetItselfAndNeighborsToWater = function(y, x) {
     var dirX, dirY, i, len, results;
     if (!((0 <= y && y < maxY) && (0 <= x && x < maxX))) {
       return;
@@ -51,7 +51,7 @@ numIslands = function(grid) {
     results = [];
     for (i = 0, len = directions.length; i < len; i++) {
       [dirX, dirY] = directions[i];
-      results.push(dfsNeighborsLandToWater(y + dirY, x + dirX));
+      results.push(dfsSetItselfAndNeighborsToWater(y + dirY, x + dirX));
     }
     return results;
   };
@@ -62,7 +62,7 @@ numIslands = function(grid) {
         continue;
       }
       countIslands += 1;
-      dfsNeighborsLandToWater(row, col);
+      dfsSetItselfAndNeighborsToWater(row, col);
     }
   }
   return countIslands;

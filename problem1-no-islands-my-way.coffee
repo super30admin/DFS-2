@@ -36,19 +36,19 @@ numIslands = (grid) ->
   maxY = grid.length
   directions = [[-1, 0], [1, 0], [0, -1], [0, 1]]
 
-  dfsNeighborsLandToWater = (y, x) ->
+  dfsSetItselfAndNeighborsToWater = (y, x) ->
     return if !(0 <= y < maxY and 0 <= x < maxX)
     return if grid[y][x] is WATER
     grid[y][x] = WATER
     for [dirX, dirY] in directions
-      dfsNeighborsLandToWater(y + dirY, x + dirX)
+      dfsSetItselfAndNeighborsToWater(y + dirY, x + dirX)
 
   countIslands = 0
   for row in [0...maxY]
     for col in [0...maxX]
       continue if grid[row][col] is WATER
       countIslands += 1
-      dfsNeighborsLandToWater(row, col)
+      dfsSetItselfAndNeighborsToWater(row, col)
 
   countIslands
 
