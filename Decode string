@@ -1,0 +1,46 @@
+class Solution {
+    public String decodeString(String s) {
+      StringBuilder output = new StringBuilder();
+        Stack<Integer> countStack = new Stack<>();
+        Stack<String> tempStack = new Stack<>();
+        
+        int i = 0;
+        while(i < s.length()){
+             System.out.println(i);
+
+            if(s.charAt(i) >= '0' && s.charAt(i) <= '9'){
+                int count = 0;
+                while(s.charAt(i) >= '0' && s.charAt(i) <= '9'){
+                    count = count*10 + s.charAt(i) - '0';
+                    i++;
+                } 
+         //       System.out.println(count);
+                countStack.push(count);
+         //   System.out.println(tempStack.size());
+            }
+            else if(s.charAt(i) == '['){
+          
+                i++;
+                if(s.charAt(i) >= 'a' && s.charAt(i) <= 'z'){
+                      String temp = "";
+                while(s.charAt(i) >= 'a' && s.charAt(i) <= 'z'){
+                    temp += s.charAt(i);
+                    i++;
+                }
+                 tempStack.push(temp);
+                }
+               
+            }
+            else if(s.charAt(i) == ']') {
+                int count = countStack.pop();
+                String temp = tempStack.pop();
+                for(int k = 0; k < count; k++){
+                    output.append(temp);
+                }
+             }
+            
+            i++;
+        }
+        return output.toString();
+}
+}
