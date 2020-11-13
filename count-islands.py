@@ -1,5 +1,5 @@
 # Time Complexity: O(m*n)
-# Space Complexity: O(m*n)
+# Space Complexity: O(m*n) - DFS, O(min(m,n)) - BFS
 # Approach: Our goal here is to count the number of connected components in the graph. Do a DFS or BFS traversal on the graph starting from the first node whose value is "1". Mark each node as "X" (visited). Explore all the nodes in the grid. After every DFS/BFS call from a node, if there are remaining nodes with "1", this indicates a new connected component. 
 class Solution(object):
     def numIslands(self, grid):

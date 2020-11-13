@@ -1,29 +1,33 @@
-# Brute Force Solution - Using a stack
+# Time Complexity: O(n*k) - len of decoded string
+# Space Complexity: O(n) - len of string
+# Approach: Use two stacks to process numbers and strings separately. 
+# For every opening '[' append current string and number to respective stacks.
+# For every closing ']' decode the current string by appending it to a new string k times and append this to the original string.
 class Solution(object):
     def decodeString(self, s):
         """
         :type s: str
         :rtype: str
         """
-        stack = []
+        currStr = ''
+        num = 0
+        numStack = []
+        strStack = []
         for i in range(len(s)):
-            if s[i] == ']':
-                s1 = []
-                while stack[-1] != '[':
-                    s1.append(stack.pop())
-                stack.pop()
-                k = 0
-                base = 1
-                while stack and stack[-1].isnumeric():
-                    k = k + int(stack.pop()) * base
-                    base = base * 10
-                
-                while k != 0:
-                    for j in reversed(range(len(s1))):
-                        stack.append(s1[j])
-                    k -= 1
-                
+            c = s[i]
+            if c.isdigit():
+                num = num*10 + int(c)
+            elif c == '[':
+                numStack.append(num)
+                strStack.append(currStr)
+                currStr = ''
+                num = 0
+            elif c == ']':
+                times = numStack.pop()
+                newStr = ''
+                for _ in range(times):
+                    newStr += currStr
+                currStr = strStack.pop() + newStr
             else:
-                stack.append(s[i])
-        
-        return ''.join(stack)
+                currStr += c
+        return currStr
