@@ -1,5 +1,5 @@
 // Time Complexity :  O(M * N) no of elements
-// Space Complexity : O(M * N) - worst case for one side tree, avg n/2
+// Space Complexity : O(M * N) - worst case stack adding all elements
 // Did this code successfully run on Leetcode :Yes
 // Any problem you faced while coding this :No
 
