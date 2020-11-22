@@ -1,0 +1,103 @@
+/*
+Time Complexity: O(n)
+LeetCode: unsuccessful.
+
+Could not come up with the algorithm.
+
+*/
+
+class Solution {
+
+    HashMap<Character,Integer> nums;
+    public String decodeString(String s) {
+    
+        nums = new HashMap<>();
+        numToChar();
+        
+        
+        Queue<Integer> count= new LinkedList<>();
+        Queue<String> subString= new LinkedList<>();
+        
+        String sub="";
+        int number=0;
+        for(int i=0;i<s.length();i++)
+        {
+            if(s.charAt(i)=='[')
+            {
+                sub="";
+                if(number!=0)
+                {
+                    //push number in the queue
+                    count.add(number);
+               //     number=0;
+                   
+                }
+                else{
+                    number=1;
+                    count.add(number);
+                   
+                }
+                 continue;
+            }
+            
+            if(s.charAt(i)==']')
+            {
+                subString.add(sub); // push sub in quue
+                sub="";
+                number=0;
+                continue;
+            }
+            System.out.println(s.charAt(i));
+       //     if(s.charAt(i)=='3')
+            {
+         //       System.out.println(" breaking ");
+        //        break;
+            }
+            if(nums.containsKey(s.charAt(i)))
+            {
+              //  if(i>0 && s.charAt(i-1))
+               
+                number=number*10+nums.get(s.charAt(i));
+   //              System.out.println(number);
+                continue;
+            }
+            if(number!=0)
+                sub+=s.charAt(i);
+            else{
+              
+                
+                number=1;
+                count.add(number);
+                sub+=s.charAt(i);
+            } 
+            
+        }
+        
+     
+        String result="";
+        while(count.size()>0)
+        {
+            
+            System.out.println(count.peek());
+            int limit=count.poll();
+            String st=subString.poll();
+            for(int j=0;j<limit;j++)
+                result+=st;
+      //      result+=subString.poll().repeat(count.poll());
+        }
+        return result;
+        
+    }
+    
+   void numToChar(){
+
+        for(int i=0;i<10;i++)
+            {
+           
+    //        System.out.println("size of hashma    "+nums.size());
+                nums.put( (char)((char)'0'+i),i);
+           
+            }
+
+    }
+}
