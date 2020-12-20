@@ -40,3 +40,9 @@ public class Solution {
             else
             {
                 sb.Append(c);
+            }
+        }
+        return sb.ToString();
+        
+    }
+}
