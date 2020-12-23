@@ -1,0 +1,54 @@
+//Time Complexity: O(N) || O(N * no. of Times string is repeated) ??
+//Space Complexity: O(N) --> Everything will be inside stack
+
+//Approach is to use two stacks: 1-> number of times && 2-> string formed
+//Using StrinBuilder to record currentString and previousString info.
+
+class Solution {
+    public String decodeString(String s) {
+        if(s==null || s.length()==0){
+            return s;
+        }
+        
+        Stack<Integer> numStk = new Stack<>();
+        Stack<StringBuilder> strStk = new Stack<>();
+        
+        StringBuilder currString = new StringBuilder();
+        int num = 0;
+        for(int i = 0 ; i < s.length() ; i++){
+            char c = s.charAt(i);
+            
+            /* Case1: DIGIT */
+            if(Character.isDigit(c)){       //check if it's digit --> add to numStack
+                num = num*10 + c - '0';     //No. of times can be 2 digit or 3 digit
+            }
+            
+            /* Case2: "[" */
+            else if(c == '['){
+                numStk.push(num);       //push the num we have for upcoming string into the numStack
+                strStk.push(currString);    //push currentstring to the stringStack
+                num  = 0;                   //Reset num to zero --> 3[a2[c]]
+                currString = new StringBuilder();   //reset currString to null(we already stored it's info in above step into the Stringstack);
+            }
+            
+            /* Case3: "]" */
+            else if(c==']'){
+                int repeat = numStk.pop();      //fetching no. of times that string needs to be appended
+                StringBuilder newString = new StringBuilder();  /**create a newString by appending current string **/
+                while(repeat>0){
+                    newString.append(currString);
+                    repeat--;
+                }   //newString for with no. of times has been created
+                
+                currString = strStk.pop().append(newString);    //appending new string to the previously stored currString from the stack by popping
+            }
+            
+            /* Case4: CHARACTER */
+            else{
+                currString.append(c);   //if character, continue appending to current string
+            }
+        }
+
+        return currString.toString();
+    }
+}
