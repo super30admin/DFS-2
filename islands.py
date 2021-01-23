@@ -1,5 +1,5 @@
 # Time Complexity : O(mn)
-# Space Complexity : O(mn) -> queue / recursive stack
+# Space Complexity : O(min(m, n)) -> queue / O(mn) - recursive stack
 
 class Solution:
     def numIslandsBFS(self, grid: List[List[str]]) -> int:
