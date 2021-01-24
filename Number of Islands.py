@@ -36,7 +36,7 @@ class Solution:
     def numIslands(self, grid: List[List[str]]) -> int:
         #Approach: BFS
         #Time Complexity: O(m * n)
-        #Space Complexity: O(m * n)
+        #Space Complexity: O(min(m, n))
         
         m = len(grid)
         n = len(grid[0])
