@@ -1,0 +1,36 @@
+from collections import deque
+class Solution:
+    def numIslands(self, grid: List[List[str]]) -> int:
+        nrows, ncols = len(grid), len(grid[0]);
+        visited = [[False]*ncols for i in range(nrows)];
+        countcomponents = 0;
+        # iterate through the grid and apply bfs whenever the current element is 1 and
+        # increment the components count
+        
+        for i in range(nrows):
+            for j in range(ncols):
+                if(grid[i][j] == '1'):
+                    grid[i][j] = 0;
+                    countcomponents += 1;
+                    # apply bfs traversal
+                    queue = deque();
+                    queue.append((i,j));
+                    visited[i][j] = True;
+                    while(queue):
+                        x,y = queue.popleft()
+                        # check for the possible neighbors whose value is 1's
+                        for dx,dy in [[0,1], [0,-1], [1,0], [-1, 0]]:
+                            if(0 <= x + dx < nrows and 0 <= y + dy < ncols and grid[x+dx][y+dy] == '1'):
+                                grid[x+dx][y+dy] = 0;
+                                queue.append((x+dx, y+dy));
+        return countcomponents;
+                        
+                                
+                                
+        """
+        m = number of rows, n = number of columns 
+        time complexity = O(mn)
+        space complexity = O(mn)
+        """              
+                    
+        
