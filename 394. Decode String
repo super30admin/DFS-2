@@ -1,0 +1,63 @@
+class Solution:
+    def decodeString(self, s: str) -> str:
+        
+        # initialize a stack
+        stack = [];
+        j= 0;
+        n = len(s)
+        
+        while(j < n):
+            
+            # find the digit and push into the stack
+            if(s[j].isdigit()):
+                temp = ''
+                while(j < n and s[j].isdigit()):
+                    temp += s[j];
+                    j += 1;
+                stack.append(int(temp));
+            # if the current character is open character, iterate until you find the character which is not alphabet and push the string into stack if not empty 
+            elif(s[j] == '['):
+                j += 1;
+                temp = ''
+                while(s[j].isalpha()):
+                    temp += s[j];
+                    j += 1;
+                if(temp):
+                    stack.append(temp);
+            # pop all the elements from the stack and concatenate them until you find the digit 
+            # repeat the same string digit number of times and push the result string into stack
+            elif(s[j] == ']'):
+                temp = '';
+                while(stack):
+                    topstack = stack.pop();
+                    if(type(topstack) == str):
+                        temp = topstack + temp;
+                    else:
+                        temp *= topstack;
+                        break;
+                if(temp):
+                    stack.append(temp);
+                j += 1;
+                
+            # iterate through the string and concatenate those characters until you find the non alpha character and push that result string into stack
+            else:
+                temp = ''
+                while(j < n and s[j].isalpha()):
+                    temp += s[j];
+                    j += 1;
+                stack.append(temp);
+        result = ''
+        while(stack):
+            result = stack.pop() + result;
+        return result;
+        
+                    
+       """
+       n = length of string
+       time complexity = O(n)
+       space complexity = O(n)
+       """             
+                    
+                
+                
+        
