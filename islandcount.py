@@ -4,7 +4,8 @@ class Solution:
     Description: Given an m x n 2d grid map of '1's (land) and '0's (water), return the number of islands
     
     Time Complexicity: O(m*n)
-    Space Complexicity: O(m*n)
+    Space Complexicity: O(m*n) for DFS and min(m,n) for BFS
+    where m and n are dimensions of the given matrix
     
     Approach: 
     Using BFS:
