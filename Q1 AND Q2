@@ -1,0 +1,72 @@
+Q1
+// Time complexity: O(n*m)
+//Space complexity: O(n*m)
+// Did this code successfully run on Leetcode : Y
+// Any problem you faced while coding this : N
+class Solution {
+public:
+    int numIslands(vector<vector<char>>& grid) {
+        int m = grid.size(), n = grid[0].size() , islands = 0;
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                if (grid[i][j] == '1') {
+                    islands++;
+                    eraseIslands(grid, i, j);
+                }
+            }
+        }
+        return islands;
+    }
+    
+    private:
+    void eraseIslands(vector<vector<char>>& grid, int i, int j) {
+        int m = grid.size(), n = grid[0].size();
+        if (i < 0 || i == m || j < 0 || j == n || grid[i][j] == '0') {
+            return;
+        }
+        grid[i][j] = '0';
+        eraseIslands(grid, i - 1, j);
+        eraseIslands(grid, i + 1, j);
+        eraseIslands(grid, i, j - 1);
+        eraseIslands(grid, i, j + 1);
+    }
+};
+
+Q2.
+// Time Complexity : O(N) 
+// Space Complexity : O(N)
+// Did this code successfully run on Leetcode : Y
+// Any problem you faced while coding this : N
+
+class Solution {
+public:
+    string decodeString(string s) {
+        stack<string> chars;
+        stack<int> nums;
+        string res;
+        int num = 0;
+        for(char c : s) {
+            if(isdigit(c)) {
+                num = num*10 + (c-'0');                              
+            }
+            else if(isalpha(c)) {
+                res.push_back(c);                
+            }
+            else if(c == '[') {
+                chars.push(res);
+                nums.push(num);
+                res = "";
+                num = 0;
+            }
+            else if(c == ']') {
+                string tmp = res;
+                for(int i = 0; i < nums.top()-1; ++i) {
+                    res += tmp;
+                }
+                res = chars.top() + res;
+                chars.pop(); nums.pop();
+            }
+        }
+        return res;
+    }
+};
