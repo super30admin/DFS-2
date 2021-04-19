@@ -1,0 +1,113 @@
+// Time Complexity : O(m x n)
+// Space Complexity :O(m x n)
+// Did this code successfully run on Leetcode :
+// Any problem you faced while coding this :
+
+
+// Your code here along with comments explaining your approach
+bfs
+
+class Solution {
+    int numOfIslands, m, n, count;
+    public int numIslands(char[][] grid) {
+        count =0;
+        if(grid == null || grid.length == 0)
+            return count;
+       
+        m = grid.length;
+        n = grid[0].length;
+        
+        for(int i=0; i<m; i++)
+        {
+            for(int j=0; j<n; j++)
+            {
+                if(grid[i][j] == '1')
+                {
+                    count++;
+                    bfs(grid, i, j);
+                    
+                }
+                    
+            }
+        }
+        
+       
+        return count;
+    }
+    
+    private void bfs(char[][] grid, int i, int j)
+    {
+        Queue<int []> bfsQ = new LinkedList<>();
+        bfsQ.add(new int[] {i,j});
+        
+        int[][] dirs = {{0,1}, {0,-1}, {1,0}, {-1,0}};
+        
+        while(!bfsQ.isEmpty())
+        {
+            int[] temp = bfsQ.poll();
+            for(int[] d: dirs)
+            {
+                int r = temp[0]+d[0];
+                int c = temp[1]+d[1];
+                
+                if(0 <= r && r < m && 0 <= c && c < n && grid[r][c] == '1')
+                {
+                    grid[r][c] = '0';
+                    bfsQ.add(new int[] {r,c});
+                }
+            }
+        }
+    }
+}
+
+dfs
+
+class Solution {
+    int numOfIslands, m, n, count;
+    public int numIslands(char[][] grid) {
+        count =0;
+        if(grid == null || grid.length == 0)
+            return count;
+       
+        m = grid.length;
+        n = grid[0].length;
+        
+        for(int i=0; i<m; i++)
+        {
+            for(int j=0; j<n; j++)
+            {
+                if(grid[i][j] == '1')
+                {
+                    count++;
+                    dfs(grid, i, j);
+                    
+                }
+                    
+            }
+        }
+        
+       
+        return count;
+    }
+    
+    private void dfs(char[][] grid, int i, int j)
+    {
+        //base
+        if( i <0 || i == m || j < 0 || j==n || grid[i][j] == '0')
+            return;
+        
+        //logic
+        grid[i][j] ='0';
+        int[][] dirs = {{0,1}, {0,-1}, {1,0},{-1,0}};
+        
+        for(int[] d:dirs)
+        {
+            int r = i + d[0];
+            int c = j + d[1];
+            dfs(grid, r, c);
+        }
+        
+        
+        
+    }
+}
