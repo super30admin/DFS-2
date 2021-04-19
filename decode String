@@ -1,0 +1,64 @@
+// Time Complexity :O(nk) n- s.length k - max number in s
+// Space Complexity : O(n)
+// Did this code successfully run on Leetcode :
+// Any problem you faced while coding this :
+when to push and pop into stack
+
+// Your code here along with comments explaining your approach
+
+class Solution {
+    public String decodeString(String s) {
+        
+        String curr = "";
+        Stack<String> subString = new Stack<>();
+        Stack<Integer> num = new Stack<>();
+        int n = 0;
+        for(int i=0; i<s.length(); i++)
+        {
+            Character c = s.charAt(i);
+            
+            if(Character.isDigit( s.charAt(i)))
+            {
+                int num_t = Character.getNumericValue(s.charAt(i));
+                n = n*10 + num_t;
+                
+            }
+            
+            else // aplhabet or [ or ]
+            {
+                if(c.equals('['))
+                {
+                    num.add(n);
+                    subString.add(curr);
+                    n =0;
+                    curr = "";
+                }
+                else if(c.equals(']'))
+                {
+                    curr = subString.pop() + compute(curr, num.pop());
+                    
+                }
+                else
+                {
+                     curr = curr + s.charAt(i);
+                }
+            }
+            
+              
+        }
+        return curr;
+       
+    }
+    
+     private String compute(String sub, int n)
+        {
+            String result="";
+            for(int i=0; i<n; i++)
+            {
+                result = result + sub;
+            }
+            //System.out.println("sub = "+sub+" n = "+" result = "+result);
+            return result;
+        }
+        
+}
