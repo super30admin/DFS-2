@@ -6,7 +6,7 @@ Time Complexity: O(N) where N = number of characters
 Space Complexity: O(N) where N = number of characters or Depth of the inner most brackets
 */
 
-
+//Iterative
 class Solution {
 public:
     string decodeString(string s) {
@@ -56,4 +56,50 @@ public:
 
         return currentString;
     }
+};
+
+//Using Stack
+class Solution {
+public:
+    int i;
+    string decodeString(string s) {
+        
+        string currentString;
+        int num = 0;
+        
+        while ( i < s.size()){
+            
+            char c = s[i];
+            
+            if (isdigit(c)){
+                
+                num = num * 10 + c - '0';
+                i++;
+            }
+            else if (c == '['){
+                i++;
+                string child = decodeString(s);
+                string newString;
+                for (int j = 0; j < num; j++ ){
+                    newString += child;
+                }
+                num = 0;
+                currentString += newString;
+                
+            }
+            else if (c == ']'){
+                i++;
+                
+                return currentString;
+            
+            }
+            else{
+                i++;
+                currentString += c;
+                
+            }
+        }
+        return currentString;
+    }
+    
 };
