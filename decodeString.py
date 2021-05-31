@@ -10,19 +10,21 @@ class Solution:
         
         for i in s:
             if i.isdigit():
-                num = num*10 + i - '0'
+                num = num*10 + int(i)
             elif i == '[':
                 numStack.append(num)
                 strStack.append(currStr)
                 num = 0
+                currStr = ""
             
             elif i == ']':
                 multFactor = numStack.pop()
+                newStr = ""
                 for i in range(multFactor):
                     newStr = newStr + currStr
                 currStr = strStack.pop() + newStr
         
             else:
-                currStr = cuttStr + i
+                currStr = currStr + i
         
         return currStr
