@@ -12,7 +12,7 @@ class Solution:
         #          2. [  - then append numbers and letters in stack
         #          3. number - calculate the number depending on previou snumber
         #          4. Alpha  - append it to current string
-        # Evenetually return the result string
+        # Eventually return the result string
         for i in range(len(s)):
             if s[i].isnumeric():
                 k = k * 10 + int(s[i])
