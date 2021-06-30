@@ -1,5 +1,5 @@
 # Time Complexity : O(K*N) - >K is max repeating number in the string 
-# Space Complexity :    min O(M*N) 
+# Space Complexity :    O(N)
 # Did this code successfully run on Leetcode : YES
 # Any problem you faced while coding this : NO
 
