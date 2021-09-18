@@ -1,0 +1,69 @@
+class Solution {
+   int i=0;
+    public String decodeString(String s) {
+        if(s==null || s.length()==0) return s;
+   /*     int cur=0;
+        StringBuilder str=new StringBuilder();
+        Stack<Integer> num=new Stack<>();
+        Stack<StringBuilder> strSt=new Stack<>();
+        for(int i=0;i<s.length();i++){
+            char c=s.charAt(i);
+               if(Character.isDigit(c)){
+                    cur=10*cur+c-'0';
+                }
+                else if(s.charAt(i)=='['){
+                    num.push(cur);
+                    strSt.push(str);
+                    cur=0;
+                    str=new StringBuilder();
+                }
+                else if(s.charAt(i)==']'){
+                    int sub=num.pop();
+                    StringBuilder sb=new StringBuilder();
+                    for(int j=0;j<sub;j++){
+                        sb.append(str);
+                    }
+                    cur=0;
+                   StringBuilder parent= strSt.pop();
+                  str=  parent.append(sb);
+                }
+            else{
+                str.append(c);
+            }
+            }
+        return str.toString();
+        }
+    }
+//TC O(nk)--n is the lrength of the string, n is the max number
+//SC O(m) --m is the number of nestings in the string */
+       // int i=0;
+        int cur=0;
+        StringBuilder curStr=new StringBuilder();
+        while(i<s.length()){
+            char c=s.charAt(i);
+           if(Character.isDigit(c)){
+                    cur=10*cur+c-'0';
+               i++;
+                }
+                else if(s.charAt(i)=='['){
+                   i++;
+                     String  baby=decodeString(s);
+                    StringBuilder sb=new StringBuilder();
+                    for(int j=0;j<cur;j++){
+                        sb.append(baby);
+                    }
+                    curStr.append(sb);
+                    cur=0;
+                }
+                else if(s.charAt(i)==']'){
+                   i++;
+                    return curStr.toString();
+                }
+            else{
+                curStr.append(c);
+                i++;
+            } 
+        }
+        return curStr.toString();
+    }
+}
