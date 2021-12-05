@@ -1,6 +1,7 @@
 # Time Complexity : O(m * n) actually 2mn for the bfs, as if all are 1, 
-# then one pass M * N and second pass to iterate over matrix and check again
-# Space Complexity : O(m * n ) if all are 1 
+#  then one pass M * N and second pass to iterate over matrix and check again
+# Space Complexity : O(m * n ) for DFS if all are 1, 
+#  O(min(m, n)) for BFS, length of biggest diagonal 
 # Did this code successfully run on Leetcode : yes
 # Any problem you faced while coding this : No
 # Your code here along with comments explaining your approach
