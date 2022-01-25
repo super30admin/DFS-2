@@ -1,6 +1,8 @@
 # DFS-2
 
-## Problem1 (https://leetcode.com/problems/number-of-islands/)
+## Problem1
+Number of Islands (https://leetcode.com/problems/number-of-islands/)
 
 
-## Problem2 (https://leetcode.com/problems/decode-string/)
+## Problem2
+Decode String (https://leetcode.com/problems/decode-string/)
