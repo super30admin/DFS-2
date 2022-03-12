@@ -1,0 +1,39 @@
+class Solution:
+    #time-k*n,space=depth
+    def __init__(self):
+        self.indx=0
+       
+    def decodeString(self, s: str) -> str:
+        res=self.dfs(s)
+        return res
+    def dfs(self,s):
+        
+        #base
+        num=0
+        curr=''
+        #logic
+        while self.indx<len(s):
+            print(num,curr,self.indx)
+            if s[self.indx].isdigit():
+                num=num*10+int(s[self.indx])
+                self.indx+=1
+            elif s[self.indx].isalpha():
+                
+                curr=curr+s[self.indx]
+                self.indx+=1
+            elif s[self.indx]=='[':
+                self.indx+=1
+                decoded=self.dfs(s)
+                curr=curr+num*decoded
+                num=0
+                print("xcurr",curr)
+            elif s[self.indx]==']':
+                self.indx+=1
+                return curr
+        return curr
+            
+            
+            
+            
+            
+        
