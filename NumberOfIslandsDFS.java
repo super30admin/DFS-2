@@ -22,8 +22,6 @@ public class NumberOfIslandsDFS {
         rows = grid.length;
         columns = grid[0].length;
 
-        Queue<int[]> queue = new LinkedList<>();
-
         // This nested for loop is to search for occurrence of 1
         // As soon as we find 1, initiate the BFS process
         for (int i = 0; i < rows; i++) {
