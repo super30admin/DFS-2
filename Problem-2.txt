@@ -1,0 +1,101 @@
+//https://leetcode.com/problems/decode-string/
+//tc- O(n)
+//sc- O(n)
+//using two stack
+class Solution {
+    public String decodeString(String s) {
+        
+        if(s == null || s.length() ==0) return s;
+        
+        Stack<StringBuilder> strStack = new Stack<>();
+        Stack<Integer> numStack = new Stack<>();
+        
+        int num =0;
+        
+        StringBuilder currString = new StringBuilder();
+        
+        for(int i =0 ;i<s.length();i++)
+        {
+            char c = s.charAt(i);
+            
+            if(Character.isDigit(c))
+            {
+                num = num * 10 +(c - '0');                
+            }
+            
+            else if(c =='[')
+            {
+                numStack.push(num);
+                strStack.push(currString);
+                num=0;
+                currString = new StringBuilder();
+                
+            }
+            else if(c == ']')
+            {
+                int times = numStack.pop();
+                StringBuilder newStr = new StringBuilder();
+                for(int j =0 ;j<times;j++){
+                    newStr.append(currString);
+                }
+                currString = strStack.pop().append(newStr);
+            }
+            else{
+                currString.append(c);
+            }
+        }
+       return currString.toString(); 
+    }
+}
+
+
+
+//sc-O(n)
+//tc-O(n)
+//recursion
+class Solution {
+    int i;
+    public String decodeString(String s) {
+        
+        if(s == null || s.length() ==0) return s;
+        
+        
+        int num =0;
+        
+        StringBuilder currString = new StringBuilder();
+        
+       while(i<s.length())
+        {
+            char c = s.charAt(i);
+            
+            if(Character.isDigit(c))
+            {
+                num = num * 10 +(c - '0'); 
+                i++;
+            }
+            
+            else if(c =='[')
+            {
+                i++;
+                String decode = decodeString(s);
+                StringBuilder newStr = new StringBuilder();
+                for(int j =0 ;j<num;j++){
+                    newStr.append(decode);
+                }
+                currString.append(newStr);
+                num=0;
+                                
+            }
+            else if(c == ']')
+            {
+                i++;
+                return currString.toString();
+            }
+            else{
+                currString.append(c);
+                i++;
+            }
+        }
+       return currString.toString(); 
+    }
+}
