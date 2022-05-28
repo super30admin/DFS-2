@@ -46,5 +46,44 @@ namespace Algorithms
 
             return count;
         }
+
+
+
+        public int NumIslands_DFS(char[][] grid)
+        {
+            if (grid == null || grid.Length == 0) return 0;
+            int m = grid.Length;
+            int n = grid[0].Length;
+            int[,] dirs = new int[4, 2] { { 0, 1 }, { 0, -1 }, { -1, 0 }, { 1, 0 } };
+            int count = 0;
+            for (int i = 0; i < m; i++)
+            {
+                for (int j = 0; j < n; j++)
+                {
+                    if (grid[i][j] == '1')
+                    {
+                        count++;
+                        dfs(grid, i, j, m, n, dirs);
+
+                    }
+                }
+            }
+
+            return count;
+        }
+
+        private void dfs(char[][] grid, int i, int j, int m, int n, int[,] dirs)
+        {
+            //base
+            if (i < 0 || j < 0 || i == m || j == n || grid[i][j] != '1') return;
+            //logic
+            grid[i][j] = '2';
+            for (int k = 0; k < dirs.GetLength(0); k++)
+            {
+                int r = i + dirs[k, 0];
+                int c = j + dirs[k, 1];
+                dfs(grid, r, c, m, n, dirs);
+            }
+        }
     }
 }
