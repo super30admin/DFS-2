@@ -1,0 +1,35 @@
+# Time Complexity : O(OUTPUT)
+# Space Complexity : O(OUTPUT)
+# Did this code successfully run on Leetcode : Yes
+# Any problem you faced while coding this : No
+
+class Solution:
+    def decodeString(self, s: str) -> str:
+        numStk = []
+        strStk = []
+        num = 0
+        currStr = ""
+        i = 0
+        while i < len(s): 
+            if s[i].isdigit():
+                num = num * 10 + int(s[i])
+                i += 1
+            elif s[i] == "[":
+                numStk.append(num)
+                strStk.append(currStr)
+                i += 1
+                num = 0
+                currStr = ""
+                
+            elif s[i] == "]":
+                multiplyer = numStk.pop()
+                parentStr = strStk.pop()
+                tempStr = currStr *  multiplyer
+                currStr = parentStr+tempStr
+                i += 1
+                
+            elif s[i].isalpha():
+                currStr = currStr + s[i]
+                i += 1
+                
+        return currStr
