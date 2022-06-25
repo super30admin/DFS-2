@@ -119,3 +119,63 @@ class Solution {
     
     
 }
+
+
+//****DECODE THE STRING-- ITERATIVE SOLUTION****
+//Time complexity-
+//Space complexity-
+//Leetcode runnable- Y;
+//Any doubts- N;
+
+class Solution {
+    public String decodeString(String s) {
+        //Declaring the Two stacks
+        Stack<StringBuilder> strst=new Stack<>();
+        Stack<Integer> numst=new Stack<>();
+        
+        //Current string and current number
+        StringBuilder currstr=new StringBuilder();
+        int currnum=0;
+        
+        //Iterating over the string
+        for(int i=0;i<s.length();i++)
+        {
+            char c=s.charAt(i);
+            if(Character.isDigit(c))
+            {
+                currnum=currnum * 10 + c -'0';
+            }
+            else if(c=='[')
+            {
+                //Push the currstr and currnum inside the stack
+                strst.push(currstr);
+                numst.push(currnum);
+                
+                //Making currstr and currnum as empty and 0
+                currstr=new StringBuilder();
+                currnum=0;
+            }
+            else if(c==']')
+            {
+                //Pop the number from the numst;
+                int k=numst.pop();
+                //Making the temporary string of whatever num it needs to be
+                StringBuilder temp=new StringBuilder();
+                for(int j=0; j<k;j++)
+                {  
+                     temp.append(currstr);
+                }
+                //Pop the character from the currstr;
+                StringBuilder parent= strst.pop();
+                currstr = parent.append(temp);
+            }
+            //Just a character 
+            else
+            {
+                //Append to the current string
+                currstr.append(c);
+            }
+        }
+       return currstr.toString(); 
+    }
+}
