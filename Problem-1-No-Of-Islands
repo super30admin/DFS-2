@@ -1,0 +1,35 @@
+//TC,SC - O(2(m*n)) , O(1)
+class Solution {
+    int[][] dirs = {{-1,0},{1,0},{0,-1},{0,1}};
+    public int numIslands(char[][] grid) 
+    {
+        int m = grid.length;
+        int n = grid[0].length;
+        
+        if(grid == null || m == 0 ) return 0;
+        int no_of_island = 0;
+        for(int i = 0 ; i< m ; i++)
+        {
+            for(int j = 0 ; j < n ; j++)
+            {
+                if(grid[i][j] == '1')
+                {
+                    mark_current_island(grid, i, j, m, n);
+                    no_of_island++;
+                }
+            }
+        }
+        return  no_of_island++;
+    }
+    private void mark_current_island(char[][] grid, int r, int c, int m, int n)
+    {
+        if(r < 0 || c < 0 || r == m || c == n || grid[r][c] == '0') return;
+        grid[r][c] = '0';
+        for(int[] dir : dirs)
+        {
+            int nr = r + dir[0];
+            int nc = c + dir[1];
+            mark_current_island(grid, nr, nc, m, n);
+        }
+    }
+}
