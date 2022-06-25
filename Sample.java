@@ -122,8 +122,8 @@ class Solution {
 
 
 //****DECODE THE STRING-- ITERATIVE SOLUTION****
-//Time complexity-
-//Space complexity-
+//Time complexity- length of the final string- n -------o(n);
+//Space complexity-Number of open brackets that would be the maximum depth of the stack. 0(h);
 //Leetcode runnable- Y;
 //Any doubts- N;
 
