@@ -1,5 +1,5 @@
 //TC: O(m*n)
-//SC: O(m*n)
+//SC: DFS: O(m*n) BFS: O(Min(m, n))
 class Solution {
     int[][] dirs = {{-1,0}, {1,0}, {0,-1}, {0,1}}; // U D L R
     int m;
