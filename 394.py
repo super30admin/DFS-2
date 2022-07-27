@@ -1,3 +1,9 @@
+
+#time complexity: o(n)
+#space complexity: o(n)
+
+
+
 class Solution:
     def decodeString(self, s: str) -> str:
         stack =[]
