@@ -1,5 +1,9 @@
+// Time Complexity : O(mn)
+// Space Complexity : O(mn)
+// Did this code successfully run on Leetcode : yes
+// Any problem you faced while coding this : no
 class Solution {
-    public int numIslands(char[][] grid) {
+ public int numIslands(char[][] grid) {
         if(grid == null || grid.length == 0) return 0;
         int cnt = 0;
         for(int r = 0; r < grid.length; r++) {
