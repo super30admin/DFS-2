@@ -15,7 +15,6 @@ class Solution {
                 currStr = new StringBuilder();
                 currNum = 0;
             } else if(c == ']') {
-                // decoding the curr baby
                 int n = numSt.pop();
                 StringBuilder temp = new StringBuilder();
                 for(int j = 0; j < n; j++) {
