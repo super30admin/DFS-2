@@ -15,7 +15,7 @@ class Solution(object):
         // Recursive
         '''
         
-        #2 Stack method TC: O(len(output)) SC- O(1)
+        #2 Stack method TC: O(len(output)) SC- O(depth of the stack)
         
         stringStack=deque()
         numStack=deque()
