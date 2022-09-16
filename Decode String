@@ -1,0 +1,24 @@
+class Solution:
+    def decodeString(self, s: str) -> str:
+        stk = []
+        for i in range(len(s)):
+            if s[i] != "]":
+                if s[i] in "0123456789":
+                    if stk and isinstance(stk[-1],int):
+                        stk[-1] = stk[-1]*10 + int(s[i])
+                    else:
+                        stk.append(int(s[i]))
+                else:
+                    stk.append(s[i])
+            else:
+                temp = ""
+                while stk[-1] != "[":
+                    ch = stk.pop()
+                    temp = ch + temp
+                stk.pop()
+                stk[-1] = stk[-1] * temp
+        return "".join(stk)
+    
+# Time Complexity: O(n)
+# Space Complexity: O(n)
+# Successfully implemented on Leetcode
