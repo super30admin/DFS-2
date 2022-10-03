@@ -62,6 +62,5 @@ public class DecodeStringRec {
         return currString.toString();
     }
 }
-
-// Time Complexity - O(m*n)
-// Space Complexity - O(min(m,n))
+// Time Complexity - length of output string
+// Space Complexity - Number of opening brackets
