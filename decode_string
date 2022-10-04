@@ -1,5 +1,5 @@
 //TimeComplexity. Max(k).n
-//Spacecomplexity O(no. of chars + no of digits)
+//Spacecomplexity O(H)
 
 
 class Solution {
