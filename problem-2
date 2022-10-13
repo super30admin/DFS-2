@@ -1,0 +1,34 @@
+class Solution {
+    public String decodeString(String s) {
+        Stack<Integer> num_stack=new Stack<>();
+        Stack<String> string_stack=new Stack<>();
+        int curr_num=0;
+        String curr_str="";
+        for(int i=0;i<s.length();i++){
+            char c=s.charAt(i);
+            if(Character.isDigit(c)){
+                curr_num=curr_num*10+c-'0';
+                
+            }
+            else if(c=='['){
+                num_stack.push(curr_num);
+                string_stack.push(curr_str);
+                curr_num=0;
+                curr_str="";
+                
+            }else if(c==']'){
+                int num=num_stack.pop();
+                StringBuilder newStr = new StringBuilder();
+                for(int j=0;j<num;j++){
+                    newStr.append(curr_str);
+                }
+                curr_str=string_stack.pop();
+                curr_str+=newStr;
+                
+            }else{
+                curr_str+=c;
+            }
+        }
+       return curr_str; 
+    }
+}
