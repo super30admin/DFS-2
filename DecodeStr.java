@@ -56,3 +56,52 @@ public class DecodeStr {
         return currStr.toString();
     }
 }
+
+/*Approach 2 - Recursive solution
+ * This is a different type of recursion where we have a global pointer due to which we do not require the 
+ * substring functionality. When DecodeString function is called - it retains the value of 'i'.
+ */
+
+class Solution {
+    int i;
+    
+    public String decodeString(String s) {
+        
+        StringBuilder currStr = new StringBuilder();
+        int num = 0;
+        
+        while(i < s.length())
+        {
+            char c = s.charAt(i);
+            
+            if(Character.isDigit(c))
+            {
+                num = num * 10 + c - '0';
+                i++;
+            }
+            
+            else if(c == '[')
+            {
+                i++;
+                String decode = decodeString(s);
+                for(int j = 0;j < num;j++)
+                {
+                    currStr.append(decode);
+                }
+                num = 0;
+            }
+            
+            else if(c == ']')
+            {
+                i++;
+                return currStr.toString();
+            }
+            else
+            {
+                i++;
+                currStr.append(c);
+            }
+        }
+    return currStr.toString();
+    }
+}
