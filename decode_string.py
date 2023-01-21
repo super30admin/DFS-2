@@ -1,8 +1,8 @@
 # Time Complexity :
-# O(M*N)
+# O(Lenght of return string)
 
 # Space Complexity :
-# O(M*N)
+# O(Length of return string)
 
 # Did this code successfully run on Leetcode :
 #Yes
