@@ -4,12 +4,12 @@
 // Any problem you faced while coding this : No
 
 class NumberOfIslandsDFS {
-    private int[][] dirs;
+    private int[][] directions;
 
     public int numIslands(char[][] grid) {
         int m = grid.length;
         int n = grid[0].length;
-        dirs = new int[][]{{1, 0}, {0, -1}, {-1, 0}, {0, 1}};
+        directions = new int[][]{{1, 0}, {0, -1}, {-1, 0}, {0, 1}};
         int count = 0;
         Queue<int[]> queue = new LinkedList<>();
         for (int i = 0; i < m; i++) {
@@ -28,7 +28,7 @@ class NumberOfIslandsDFS {
             return;
         }
         grid[i][j] = '0';
-        for (int[] dir : dirs) {
+        for (int[] dir : directions) {
             int nr = dir[0] + i;
             int nc = dir[1] + j;
             dfs(grid, nr, nc, m, n);
@@ -45,7 +45,7 @@ class NumberOfIslandsBFS {
     public int numIslands(char[][] grid) {
         int m = grid.length;
         int n = grid[0].length;
-        int[][] dirs = new int[][]{{1, 0}, {0, -1}, {-1, 0}, {0, 1}};
+        int[][] directions = new int[][]{{1, 0}, {0, -1}, {-1, 0}, {0, 1}};
         int count = 0;
         Queue<int[]> queue = new LinkedList<>();
         for (int i = 0; i < m; i++) {
@@ -56,7 +56,7 @@ class NumberOfIslandsBFS {
                     queue.add(new int[]{i, j});
                     while (!queue.isEmpty()) {
                         int[] curr = queue.poll();
-                        for (int[] dir : dirs) {
+                        for (int[] dir : directions) {
                             int nr = dir[0] + curr[0];
                             int nc = dir[1] + curr[1];
                             if (nr >= 0 && nc >= 0 && nr < m && nc < n && grid[nr][nc] == '1') {

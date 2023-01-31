@@ -7,29 +7,29 @@ class DecodeString {
     public String decodeString(String s) {
         Stack<Integer> numSt = new Stack<>();
         Stack<StringBuilder> strSt = new Stack<>();
-        StringBuilder currStr = new StringBuilder();
-        int currNum = 0;git a
+        StringBuilder currentStr = new StringBuilder();
+        int currentNumber = 0;
         for (int i = 0; i < s.length(); i++) {
             char c = s.charAt(i);
             if (Character.isDigit(c)) {
-                currNum = currNum * 10 + c - '0';
+                currentNumber = currentNumber * 10 + c - '0';
             } else if (c == '[') {
-                strSt.push(currStr);
-                numSt.push(currNum);
-                currStr = new StringBuilder();
-                currNum = 0;
+                strSt.push(currentStr);
+                numSt.push(currentNumber);
+                currentStr = new StringBuilder();
+                currentNumber = 0;
             } else if (c == ']') {
                 int count = numSt.pop();
                 StringBuilder str = new StringBuilder();
                 for (int j = 0; j < count; j++) {
-                    str.append(currStr);
+                    str.append(currentStr);
                 }
                 StringBuilder mainStr = strSt.pop();
-                currStr = mainStr.append(str);
+                currentStr = mainStr.append(str);
             } else {
-                currStr.append(c);
+                currentStr.append(c);
             }
         }
-        return currStr.toString();
+        return currentStr.toString();
     }
 }
