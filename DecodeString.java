@@ -1,3 +1,7 @@
+// Time Complexity : O(maxK⋅n), where maxK is the maximum value of k and n is the length of a given string s
+// Space Complexity : O(M+N)
+// Did this code successfully run on Leetcode :yes
+// Any problem you faced while coding this :no
 class Solution {
     public String decodeString(String s) {
         Stack<Integer> numstack = new Stack<>();
