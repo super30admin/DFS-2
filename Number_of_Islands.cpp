@@ -42,3 +42,42 @@ public:
         
     }
 };
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//DFS Solution
+//Time - O(mxn)
+// Space - O(mxn)
+class Solution {
+public:
+    int numIslands(vector<vector<char>>& grid) {
+        if(grid.size()==0)return 0;
+        int m = grid.size();
+        int n = grid[0].size();
+        vector<vector<char>>dir= {{0,-1}, {0,1}, {1,0}, {-1,0}};
+        int count = 0;
+        for(int i=0;i<m;i++){
+            for(int j=0;j<n;j++){
+                if(grid[i][j]=='1'){
+                    count++;
+                    dfs(grid, i, j, dir, m, n);
+                }
+            }
+        }
+            return count;
+    }
+private:
+    void dfs(vector<vector<char>>& grid, int i, int j, const vector<vector<char>>& dir, int m, int n){ // we passed a const
+                                                                                                // here because we want our dir to be thread safe,
+                                                                                                  //isn't needed but just as an extra precaution. 
+        //base case
+        if(i<0 || j<0 || i==m || j==n || grid[i][j]=='0')return;
+        //logic
+        grid[i][j]='0';
+        for(int k=0;k<4;k++){
+            int nr = dir[k][0]+ i;
+            int nc = dir[k][1]+ j;
+            dfs(grid, nr, nc, dir, m, n);
+        }
+
+    }    
+};
+
