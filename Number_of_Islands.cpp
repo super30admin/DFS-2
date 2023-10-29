@@ -1,4 +1,7 @@
 //BFS Approach
+//Time - O(mxn)+O(mxn) = 2(O(mxn)) = O(mxn)
+//Space = min(m,n) because at max we will be doing bfs till the minimum of m or n, once we run a bfs at first one,
+ then we will never iterate over it again.
 class Solution {
 public:
     int numIslands(vector<vector<char>>& grid) {
