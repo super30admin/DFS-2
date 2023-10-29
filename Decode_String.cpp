@@ -1,4 +1,5 @@
 //Here in Java we have string builder class, but in cpp we have stringstream class, works the same but the + operator to concatinate won't work, instead it has its own implementation.
+//Time - looks like O(n) but it is wrong as the time would be the output of the string. In nutshell the time should be equal to the multiplication of the maximum nested. i.e: Depth of the maximum nested with all of the numbers.
 class Solution {
 public:
     string decodeString(string s) {
