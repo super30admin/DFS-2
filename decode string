@@ -1,0 +1,32 @@
+#time complexity: O(n)
+#space complexity: O(n)
+#did it run on leetcode: yes
+class Solution:
+    def decodeString(self, s: str) -> str:
+        i = 0
+        currstr = ''
+        
+        while i < len(s):
+            if s[i].isdigit():
+                num = 0
+                while s[i].isdigit():
+                    num = num * 10 + int(s[i])
+                    i += 1
+                
+                start = i + 1  # Skip '['
+                open_brackets = 1
+                
+                while open_brackets != 0:
+                    i += 1
+                    if s[i] == '[':
+                        open_brackets += 1
+                    elif s[i] == ']':
+                        open_brackets -= 1
+                
+                babystr = self.decodeString(s[start:i])
+                currstr += num * babystr
+            else:
+                currstr += s[i]
+            i += 1
+        
+        return currstr
