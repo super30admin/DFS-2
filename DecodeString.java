@@ -1,5 +1,5 @@
-// Time Complexity : O(n)
-// Space Complexity : O(n)
+// Time Complexity : O(K * n) where k is the highest number of repetations and n is length of string
+// Space Complexity : O(m+n) no of letters + no of digits
 // Did this code successfully run on Leetcode : yes
 // Any problem you faced while coding this :
 
