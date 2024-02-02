@@ -1,0 +1,30 @@
+from queue import Queue
+#TC-O(mn) SC-O(min(m,n))BFS
+class Solution:
+    def numIslands(self, grid: List[List[str]]) -> int:
+        if len(grid) == 0 or grid is None:
+            return 0
+        m = len(grid)
+        n = len(grid[0])
+        count = 0
+        dirs = [[-1, 0], [1, 0], [0, -1], [0, 1]]  # U D L R
+        for i in range(m):
+            for j in range(n):
+                if grid[i][j] == '1':
+                    count = count + 1
+                    rows = Queue()
+                    cols = Queue()
+                    rows.put(i)
+                    cols.put(j)
+                    grid[i][j] = '0'
+                    while not rows.empty():
+                        row = rows.get()
+                        col = cols.get()
+                        for dir in dirs:
+                            nr = dir[0] + row
+                            nc = dir[1] + col
+                            if nr >= 0 and nr < m and nc >= 0 and nc < n and grid[nr][nc] == '1':
+                                rows.put(nr)
+                                cols.put(nc)
+                                grid[nr][nc] = '0' 
+        return count
