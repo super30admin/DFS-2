@@ -1,6 +1,6 @@
 '''
-TC: O(m*n)
-SC: O()
+TC: O(m*n) where m and n are ROWS and COLS
+SC: O(h) where h is m*n in worst case
 '''
 from typing import List
 

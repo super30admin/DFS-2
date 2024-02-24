@@ -1,6 +1,6 @@
 '''
-TC: O(maxK⋅n)
-SC: O(n)
+TC: O(maxK⋅n) where K is the max number and n is the length of the currStr
+SC: O(n) - n is the stack space
 '''
 class Solution:
     def decodeString(self, s: str) -> str:
