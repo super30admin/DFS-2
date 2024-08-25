@@ -1,0 +1,43 @@
+// Time Complexity :O(n^2)
+// Space Complexity :O(h)
+// Did this code successfully run on Leetcode :yes
+// Any problem you faced while coding this :
+
+
+// Your code here along with comments explaining your approach
+
+class Solution {
+    public String decodeString(String s) {
+        Stack<StringBuilder> strSt = new Stack<>();
+        Stack<Integer> numSt = new Stack<>();
+        StringBuilder currStr = new StringBuilder();
+        int currNum = 0;
+        
+        for (int i = 0; i < s.length(); i++) {
+            char c = s.charAt(i);
+            
+            if (Character.isDigit(c)) {
+                currNum = currNum * 10 + (c - '0');
+            } else if (c == '[') {
+                numSt.push(currNum);
+                strSt.push(currStr);
+                currStr = new StringBuilder();
+                currNum = 0;
+            } else if (c == ']') {
+                int cnt = numSt.pop();
+                StringBuilder baby = new StringBuilder();
+                
+                for (int k = 0; k < cnt; k++) {
+                    baby.append(currStr);
+                }
+                
+                StringBuilder parent = strSt.pop();
+                currStr = parent.append(baby);
+            } else {
+                currStr.append(c);
+            }
+        }
+        
+        return currStr.toString();
+    }
+}
