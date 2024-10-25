@@ -1,0 +1,69 @@
+DFS: T.c --> O(m*n), S.c --> O(m*n)
+
+class Solution {
+    int count = 0;
+    int[][] dirs = {{-1,0},{1,0},{0,-1},{0,1}};
+    int m;
+    int n;
+    public int numIslands(char[][] grid) {
+        m = grid.length;
+        n = grid[0].length;
+        for(int i =0; i<m; i++){
+            for(int j = 0; j<n; j++){                
+                if(grid[i][j] == '1'){
+                    count++;
+                    dfs(grid,i,j);
+                }
+            }
+        }
+      return count;
+    }
+    private void dfs(char[][] grid, int i , int j){
+        if(i<0 || i> m-1 || j<0 || j>n-1 || grid[i][j] != '1'){
+            return;
+        }else{
+            grid[i][j] = '2';
+        }
+        for(int[] dir:dirs){
+            int nr = dir[0]+i;
+            int nc = dir[1]+j;
+            dfs(grid,nr,nc);
+        }
+    }
+}
+
+**************************************************************************
+
+BFS: T.c --> O(m*n) , s.c --> O(m*n)
+
+class Solution {
+    int count = 0;
+    int[][] dirs = {{-1,0},{1,0},{0,-1},{0,1}};
+    int m;
+    int n;
+    public int numIslands(char[][] grid) {
+        m = grid.length;
+        n = grid[0].length;
+        for(int i =0; i<m; i++){
+            for(int j = 0; j<n; j++){                
+                if(grid[i][j] == '1'){
+                    count++;
+                    Queue<int[]> q = new LinkedList<>();
+                    q.add(new int[] {i,j});
+                    while(!q.isEmpty()){
+                        int[] curr = q.poll();
+                        for(int[] dir: dirs){
+                            int nr = dir[0]+curr[0];
+                            int nc = dir[1]+curr[1];
+                            if(nr>=0 && nr<m && nc>=0 && nc<n && grid[nr][nc] == '1'){
+                               grid[nr][nc] = '2';
+                               q.add(new int[] {nr,nc});
+                            }
+                        }
+                    }
+                }
+            }
+        }
+      return count;
+    }    
+}
