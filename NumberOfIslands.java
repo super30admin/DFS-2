@@ -59,9 +59,59 @@ public class NumberOfIslands {
     }
 
     // ------------------------------------------------------ DFS Approach ------------------------------------------------------------------    
+    public int numIslandsDfs(char[][] grid) {
+        m = grid.length;
+        n = grid[0].length;
+        islands = 0;
+        dirs = new int[][] {
+                { -1, 0 },
+                { 1, 0 },
+                { 0, -1 },
+                { 0, 1 }
+        }; // U D L R
+
+        visited = new boolean[m][n];
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                if (grid[i][j] == '1' && !visited[i][j]) {
+                    islands++;
+                    dfs(grid, i, j);
+                }
+            }
+        }
+        return islands;
+    }
+
+    private void dfs(char[][] grid, int row, int col) {
+        // base
+        if (row < 0 || row >= m || col < 0 || col >= n || grid[row][col] != '1' || visited[row][col]) {
+            return;
+        }
+        // logic
+        visited[row][col] = true;
+        for (int[] dir : dirs) {
+            int nr = row + dir[0];
+            int nc = col + dir[1];
+            dfs(grid, nr, nc);
+        }
+    }
 
     public static void main(String[] args) {
         // Your code here
 
+        NumberOfIslands obj = new NumberOfIslands();
+        char[][] grid = {
+            {'1', '0', '1'},
+            {'0', '0', '0'},
+            {'1', '1', '1'},
+            {'1', '0', '1'}
+        };
+        int count = obj.numIslands(grid);
+        System.out.println(count);
+        assert (count == 3);
+
+        int count2 = obj.numIslandsDfs(grid);
+        System.out.println(count);
+        assert (count == count2);
     }
 }
