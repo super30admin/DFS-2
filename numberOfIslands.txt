@@ -1,0 +1,40 @@
+class Solution {
+    public int numIslands(char[][] grid) {
+        // need an auxiliary array to populate the grid copy with 1 - true and 0 - false 
+        /*  now start iterating trought he entire matrix and when ever you encounter a true value 
+            it indicates the start of a node and initiate teh DFS 
+            // the number of times you call the DFS from the main for loop is the number of Islands
+        */
+        int m = grid.length;
+        int n = grid[0].length;
+        boolean[][] map = new boolean[m][n];
+        int[][] dirs = {{-1,0},{1,0},{0,-1},{0,1}};
+        for(int i=0; i<m ;i++){
+            for(int j=0; j<n ; j++){
+                if(grid[i][j] == '1') map[i][j] = true;
+            }
+        } 
+        int islands = 0;
+
+        for(int i=0; i<m ; i++){
+            for(int j=0 ; j < n ; j++){
+                if(map[i][j] == true) {
+                    map[i][j] = false;
+                    dfs(map,i,j,dirs);
+                    islands++;
+                }
+            }
+        }
+        return islands;
+    }
+    private void dfs(boolean[][] map , int i , int j , int[][] dirs){
+        for(int[] dir :  dirs){
+            int r = i + dir[0];
+            int c = j + dir[1];
+            if( r >= 0 && r < map.length && c >= 0 && c < map[0].length && map[r][c] == true){
+                map[r][c] = false;
+                dfs(map, r, c , dirs);
+            }
+        }
+    }
+}

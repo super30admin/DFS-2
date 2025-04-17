@@ -1,0 +1,34 @@
+class Solution {
+    int idx ;
+    public String decodeString(String s) {
+        this.idx = 0;
+        //if i == character use String Builder to build the - if there is no parent string we will initalize it empty 
+        // if i == openbraces - call recursion returns a string (index )
+        // if i == closed braces - return the current string 
+        return decode(s).toString();
+    }
+    private StringBuilder decode(String s){
+        StringBuilder curr = new StringBuilder();
+        int repeate = 0;
+        // 4 conditions
+        while(idx < s.length()){
+            char c = s.charAt(idx);
+            idx++;
+            // if i== digit store as the repeating count
+            if(c == '['){
+                StringBuilder sb = decode(s);
+                while(repeate > 0){
+                    curr.append(sb);
+                    repeate--;
+                }
+            }else if( c == ']'){
+                return curr;
+            }else if(Character.isDigit(c)){ //Character.isDigit(c) or Also a safe trick can be -- int a = ch - '0';
+                repeate = repeate * 10 + Character.getNumericValue(c); // Character.getNumericValue() Method 
+            }else{
+                curr.append(c);
+            }
+        }
+        return curr;
+    }
+}
