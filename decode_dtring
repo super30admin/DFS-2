@@ -1,0 +1,38 @@
+#Time Complexity: O(n)
+#space complexity: O(n)
+class Solution(object):
+    def decodeString(self, s):
+        """
+        :type s: str
+        :rtype: str
+        """
+        def dfs(index):
+            current_str = ''
+            current_num = 0
+            
+            while index < len(s):
+                char = s[index]
+                
+                if char.isdigit():
+                    # Build the number (in case of multi-digit numbers)
+                    current_num = current_num * 10 + int(char)
+                elif char == '[':
+                    # Recursively decode the string inside the brackets
+                    index, decoded_str = dfs(index + 1)
+                    # Repeat the decoded string current_num times
+                    current_str += decoded_str * current_num
+                    current_num = 0  # Reset the number after using it
+                elif char == ']':
+                    # Return the decoded string and the new index (position after ']')
+                    return index, current_str
+                else:
+                    # If it's a letter, append to the current string
+                    current_str += char
+                
+                index += 1
+                
+            return current_str
+        
+        # Start DFS from index 0
+        decoded_str = dfs(0)
+        return decoded_str
