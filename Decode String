@@ -1,0 +1,24 @@
+class Solution:
+    def decodeString(self, s: str) -> str:
+        self.i = 0 
+        return self.dfs(s)
+
+    def dfs(self, s: str) -> str:
+        res = ""
+        while self.i < len(s) and s[self.i] != ']':
+            if s[self.i].isalpha():
+                res += s[self.i]
+                self.i += 1
+            else:
+                k_str = ""
+                while self.i < len(s) and s[self.i].isdigit():
+                    k_str += s[self.i]
+                    self.i += 1
+                k = int(k_str)
+                
+                self.i += 1 
+                decoded_str = self.dfs(s)
+                self.i += 1 
+                
+                res += decoded_str * k
+        return res
