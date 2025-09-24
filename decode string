@@ -1,0 +1,41 @@
+'''
+Time complexity: O(k1*k2*..Kn*len(string_at_maximumDepth)) ,
+                 here, k1, k2, k3 are numbers encountered in string
+Space complexity: O(max conseutive '[' brackets* max string length)
+
+'''
+class Solution:
+    def decodeString(self, s: str) -> str:
+        current_string = ""
+        current_number = 0
+        
+        string_stack = []
+        number_stack = []
+
+        for i in range(len(s)):
+            # digit
+            if s[i].isdigit():
+                current_number = current_number*10 + int(s[i]) #eg. 1->10, 1->15->155 
+
+            # character
+            elif s[i].isalpha():
+                current_string+=s[i] # ab -> abc
+            
+            # '['
+            elif s[i] == '[':
+                # baby has started of current parent, add parent to stack and reset string and number
+                string_stack.append(current_string)
+                current_string = ""
+                number_stack.append(current_number)
+                current_number = 0
+
+            # ']'
+            else:
+                # baby over, return to parent-> decode child(current string), join with parent
+                baby_string =  number_stack.pop()*current_string # decode, multiply the baby with the number previous that
+                parent_string = string_stack.pop()
+                current_string = parent_string+baby_string
+        
+        return current_string
+        
+        
