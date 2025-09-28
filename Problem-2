@@ -1,0 +1,54 @@
+// Time Complexity : O(n*k)
+// Space Complexity : O(n*k)
+// Did this code successfully run on Leetcode : Yes
+// Any problem you faced while coding this : None
+
+// Maintain 2 stacks for numbers and for strings
+// When a number is encountered construct number and same for alphabets, construct the curretn string
+// When an opening bracket is found push the current number and string to the stacks and reset the values
+// When closing bracket is found pop the count and repeat current string count times and append to string on top of stack and continue
+
+
+// Your code here along with comments explaining your approach
+
+class Solution {
+    public String decodeString(String s) {
+        Stack<Integer> numStack = new Stack<>();
+        Stack<StringBuilder> strStack = new Stack<>();
+        int num = 0;
+        StringBuilder currStr = new StringBuilder();
+        for(int i = 0; i < s.length(); i++) {
+            char ch = s.charAt(i);
+            // for '[' push num and current string to stacks and reset values
+            if(ch == '[') {
+                numStack.push(num); 
+                num = 0; 
+                strStack.push(currStr);
+                currStr = new StringBuilder(); 
+            } 
+            // for ']', repeat current string count(value at top of stack) number of times
+            else if(ch == ']') {
+                int count = numStack.pop();
+                String currS = currStr.toString();
+                for(int j = 0; j < count-1; j++) {
+                    currStr.append(currS);
+                } 
+                
+                StringBuilder sb = strStack.pop();
+                sb.append(currStr);
+                currStr = sb; 
+            } 
+            // for alphabets, append character to current string
+            else if(Character.isAlphabetic(ch)) {
+                currStr.append(ch);
+            }
+            // for digits, construct the number
+            else {                
+                int digit = ch - '0'; 
+                num = num * 10 + digit; 
+            }
+        }
+                
+        return currStr.toString(); 
+    }
+}

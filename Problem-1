@@ -1,0 +1,40 @@
+// Time Complexity : O(m*n)
+// Space Complexity : O(m*n)
+// Did this code successfully run on Leetcode : Yes
+// Any problem you faced while coding this : None
+
+// Traverse through the grid and start dfs when a 1 is encountered and also increment count of islands
+// do dfs to all neighbours of the cell and mark any 1s as visited
+// Return count variable
+
+
+// Your code here along with comments explaining your approach
+
+class Solution {
+    public int numIslands(char[][] grid) {
+        int m = grid.length;
+        int n = grid[0].length;
+        int count = 0;
+        for(int i = 0 ; i < m; i++) {
+            for(int j = 0 ; j < n; j++) {
+                // start dfs from every 1
+                if(grid[i][j] == '1') {
+                    count++;
+                    dfs(grid, i, j);
+                }
+            }
+        }
+        return count;
+    }
+
+    private void dfs(char[][] grid, int i, int j) {
+        if(i < 0 || i >= grid.length || j < 0 || j >= grid[0].length || grid[i][j] != '1')
+            return;
+        grid[i][j] = '2'; //marking as visited
+        // check all 4 neighbours
+        dfs(grid, i+1, j); 
+        dfs(grid, i, j+1); 
+        dfs(grid, i-1, j); 
+        dfs(grid, i, j-1); 
+    }
+}
