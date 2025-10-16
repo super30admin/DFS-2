@@ -37,7 +37,7 @@ class Solution(object):
                     que = deque()
                     que.append((i, j))
                     # mark it visited and we should not traverse this again
-                    grid[i][j] == "0"
+                    grid[i][j] = "0"
                     while(que):
                         r,c = que.popleft()
                         for k in range(len(dirs)):
@@ -115,15 +115,18 @@ class Solution(object):
                 nc = c + dirs[k][1]
                 dfs(nr, nc, dirs)
 
+
+
+
         # traverse
         for i in range(m):
             for j in range(n):
                 if(grid[i][j] == "1"):
                     numIslands += 1
                     # mark it visited and we should not traverse this again
-                    grid[i][j] == "0"
                     # we start a new DFS
                     dfs(i,j, dirs)
+
 
         return numIslands
 
