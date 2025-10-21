@@ -1,0 +1,39 @@
+class Solution {
+    int m, n;
+    int[][] dirs;
+    public int numIslands(char[][] grid) {
+        if(grid.length == 0 || grid[0].length == 0){
+            return 0;
+        }
+        //Using DFS, traverse through grid, when find '1', found a island and make connecting 1's as '0'
+        int island = 0;
+        m = grid.length;
+        n = grid[0].length;
+        dirs = new int[][]{{0, -1}, {0, 1}, {1, 0}, {-1, 0}};  
+        for(int i = 0; i< m; i++){
+            for(int j = 0; j < n; j++){
+                if(grid[i][j] == '1'){
+                    island++;
+                    dfs(grid, i, j);
+                }
+            }
+        }
+        return island;
+    }
+
+    private void dfs(char[][] grid, int i, int j){
+        //base
+        //if out of bound or its '0', return
+        if(i < 0 || i >= m || j < 0 || j >= n || grid[i][j] == '0'){
+            return;
+        }
+
+        //logic
+        grid[i][j] = '0';
+        for(int[] dir : dirs){
+            int nr = i + dir[0];
+            int nc = j + dir[1];
+            dfs(grid, nr, nc);
+        }
+    }
+}

@@ -1,0 +1,39 @@
+class Solution {
+    public String decodeString(String s) {
+        if(s == null || s.length() == 0){
+            return "";
+        }
+        //Using 2 stacks for num and string 
+        Stack<Integer> numStack = new Stack<>();
+        Stack<StringBuilder> strStack = new Stack<>();
+        int num = 0;
+        StringBuilder str = new StringBuilder();
+        for(int i = 0; i < s.length(); i++){
+            char c = s.charAt(i);
+            //if char is digit, storing in num
+            if(Character.isDigit(c)){
+                num = num * 10 + (c - '0');
+            }
+            //when '[', pushing current num and str in to stacks and making them 0 and ""
+            else if(c == '['){
+                numStack.push(num);
+                strStack.push(str);
+                num = 0;
+                str = new StringBuilder();
+            }
+            //when ']', adding curr str top of numstack times, and add that to prev str
+            else if(c == ']'){
+                    int n = numStack.pop();
+                    StringBuilder sb = new StringBuilder();
+                    for(int j = 0; j < n; j++){
+                        sb.append(str);
+                    }
+                    str = strStack.pop().append(sb);
+            }
+            else{
+                str = str.append(c);
+            }
+        }
+        return str.toString();
+    }
+}
