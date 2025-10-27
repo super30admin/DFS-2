@@ -1,0 +1,82 @@
+// First, we treat each '1' as a separate island and assign it a unique parent in a union-find structure.
+// Then for each cell with '1', we try to union it with its adjacent '1' neighbors using union by size.
+// Finally, we find the number of unique island roots by storing their representative parents in a set.
+
+
+
+class Solution {
+    int[] parent;
+    int[] size;
+    int m,n;
+
+    public int numIslands(char[][] grid) {
+        this.m = grid.length;
+        this.n = grid[0].length;
+        this.parent = new int[m*n];
+        this.size = new int[m*n];
+
+        int[][] dirs = new int[][]{{-1,0},{1,0},{0,1},{0,-1}};
+
+        for(int i=0; i<m*n; i++){
+            parent[i] = i;
+        }
+
+        for(int i=0; i<m; i++){
+            for(int j=0; j<n; j++){
+                if(grid[i][j] == '1'){
+                    int idx = i * n + j;
+                    size[idx] = Math.max(1, size[idx]);
+
+                    for(int[] dir: dirs){
+                        int nr = dir[0] + i;
+                        int nc = dir[1] + j;
+
+                        if(nr >=0 && nc >= 0 && nr < m && nc < n && grid[nr][nc] == '1'){
+                            int nidx = nr * n + nc;
+                            size[nidx] = Math.max(1, size[nidx]);
+                            union(idx, nidx);
+                        }
+                    }
+                }
+            }
+        }
+
+        HashSet<Integer> set = new HashSet<>();
+
+        for(int i=0; i<m; i++){
+            for(int j=0; j<n; j++){
+                if(grid[i][j] == '1'){
+                    int idx = i * n + j;
+                    int parent = find(idx);
+                    set.add(parent);
+                }
+            }
+        }
+        return set.size();
+    }
+
+    private void union(int x, int y){
+
+        int px = find(x);
+        int py = find(y);
+
+        if(px != py){
+            if(size[px] >= size[py]){
+                parent[py] = px;
+                size[px] += size[py];
+            }else{
+                parent[px] = py;
+                size[py] += size[px];
+            }
+        }
+    }
+
+    private int find(int x){
+
+        if(parent[x] != x){
+            parent[x] = find(parent[x]);
+        }
+
+        return parent[x];
+    }
+}
