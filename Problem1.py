@@ -3,6 +3,11 @@
 # BFS solution
 # Time Complexity: O(m*n)
 # Space Complexity: min(m,n)
+# Did this code successfully run on Leetcode : Yes
+# Any problem you faced while coding this : No
+# Approach : We scan the entire grid for any unvisited '1' which marks the start of an island. We increment count by 1 and push it to queue
+# Upon finding one, we implement BFS to visit all connected land cells, marking them as '0' and also pushing them to the queue.
+# This prevents revisits and lets us count each island exactly once.
 
 class Solution:
     def numIslands(self, grid: List[List[str]]) -> int:
